@@ -1,0 +1,4 @@
+--ignore-dir=log
+--ignore-dir=public
+--ignore-dir=vendor
+--ignore-dir=tmp
