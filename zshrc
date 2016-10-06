@@ -48,9 +48,8 @@ ZSH_THEME="theunraveler"
 plugins=(git bundler osx rake ruby rails)
 
 # User configuration
-
-export PATH="/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin"
-# export MANPATH="/usr/local/man:$MANPATH"
+export PATH=/usr/local/sbin:/usr/local/bin:${PATH}
+export PATH="$HOME/bin:$PATH"
 
 source $ZSH/oh-my-zsh.sh
 
@@ -83,8 +82,6 @@ alias subl="sublime"
 
 export GOPATH=$HOME/go
 export PATH=$PATH:$GOPATH/bin
-
-export PATH="$PATH:$HOME/.rvm/bin" # Add RVM to PATH for scripting
 
 function play {
   # Skip DASH manifest for speed purposes. This might actually disable
@@ -122,5 +119,3 @@ function configureviewapp {
   echo "======================"
   echo "https://artfully-staging-pr-$pr_id.herokuapp.com/admin configured."
 }
-
-

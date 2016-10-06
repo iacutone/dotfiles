@@ -1,3 +1,5 @@
+set shell=/bin/zsh
+set runtimepath^=~/.vim/bundle/ctrlp.vim
 execute pathogen#infect()
 
 set grepprg=ack
@@ -26,7 +28,7 @@ Plugin 'tpope/vim-fugitive'
 Plugin 'thoughtbot/vim-rspec'
 " Plugin 'tomtom/tcomment_vim'
 " Plugin 'tacahiroy/ctrlp-funky'
-Plugin 'wincent/command-t'
+" Plugin 'scrooloose/nerdcommenter'
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
