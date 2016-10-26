@@ -19,6 +19,8 @@ Plugin 'VundleVim/Vundle.vim'
 Plugin 'tpope/vim-rails'
 Plugin 'tpope/vim-fugitive'
 Plugin 'thoughtbot/vim-rspec'
+Plugin 'majutsushi/tagbar'
+Plugin 'airblade/vim-gitgutter'
 
 call vundle#end()
 filetype plugin indent on
@@ -30,6 +32,9 @@ map <Leader>t :call RunCurrentSpecFile()<CR>
 map <Leader>T :call RunNearestSpec()<CR>
 map <Leader>l :call RunLastSpec()<CR>
 map <Leader>a :call RunAllSpecs()<CR>
+let g:tagbar_ctags_bin='/usr/local/bin/ctags'
+let g:tagbar_width=30
+noremap <silent> <Leader>y :TagbarToggle
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " STATUS LINE
