@@ -29,9 +29,10 @@ let g:ctrlp_map = '<c-p>'
 let g:ctrlp_cmd = 'CtrlP'
 
 map <Leader>t :call RunCurrentSpecFile()<CR>
-map <Leader>T :call RunNearestSpec()<CR>
+map <Leader>s :call RunNearestSpec()<CR>
 map <Leader>l :call RunLastSpec()<CR>
 map <Leader>a :call RunAllSpecs()<CR>
+let g:rspec_command="! bin/rspec {spec}"
 let g:tagbar_ctags_bin='/usr/local/bin/ctags'
 let g:tagbar_width=30
 noremap <silent> <Leader>y :TagbarToggle
