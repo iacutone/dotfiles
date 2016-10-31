@@ -3,3 +3,5 @@
 latest.dump
 .env
 .env.test
+.DS_Store
+config/application.yml
