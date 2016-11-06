@@ -79,6 +79,7 @@ source $ZSH/oh-my-zsh.sh
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
 alias subl="sublime"
+alias vi='vim'
 
 export GOPATH=$HOME/go
 export PATH=$PATH:$GOPATH/bin
