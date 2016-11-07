@@ -60,8 +60,7 @@ noremap <silent> <Leader>y :TagbarToggle
 nmap <silent> <leader>d <Plug>DashSearch
 let b:surround_{char2nr('=')} = "<%= \r %>"
 let b:surround_{char2nr('-')} = "<% \r %>"
-let g:airline#extensions#tabline#enabled = 1
-let g:airline_theme='sol'
+let g:airline_theme='jellybeans'
 vmap <Leader>z :call I18nTranslateString()<CR>
 vmap <Leader>dt :call I18nDisplayTranslation()<CR>
 
