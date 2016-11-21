@@ -5,3 +5,4 @@ latest.dump
 .env.test
 .DS_Store
 config/application.yml
+tags
