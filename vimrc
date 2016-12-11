@@ -39,6 +39,10 @@ Plugin 'pbrisbin/vim-mkdir'
 Plugin 'altercation/vim-colors-solarized'
 Plugin 'ctrlpvim/ctrlp.vim'
 Plugin 'easymotion/vim-easymotion'
+Plugin 'rhysd/devdocs.vim'
+Plugin 'terryma/vim-multiple-cursors'
+Plugin 'rstacruz/sparkup'
+Plugin 'farseer90718/vim-taskwarrior'
 
 call vundle#end()
 filetype plugin indent on
@@ -73,3 +77,4 @@ let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_auto_loc_list = 1
 let g:syntastic_check_on_open = 1
 let g:syntastic_check_on_wq = 0
+let g:task_rc_override = 'rc.defaultwidth=0'
