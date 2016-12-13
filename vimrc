@@ -1,20 +1,11 @@
-set shell=zsh
-
 set nocompatible
 filetype off
-set runtimepath^=~/.vim/bundle/ctrlp.vim
-execute pathogen#infect()
-autocmd FileType ruby,haml,eruby,yaml,html,javascript,sass,cucumber set ai sw=2 sts=2 et
-let mapleader = ','
-syntax enable
-set background=dark
-let g:solarized_termcolors=256
-colorscheme solarized
-
 set rtp+=~/.vim/bundle/Vundle.vim
-call vundle#begin()
 
+call vundle#begin()
 Plugin 'VundleVim/Vundle.vim'
+Plugin 'tpope/vim-bundler'
+Plugin 'tpope/vim-rake'
 Plugin 'tpope/vim-commentary'
 Plugin 'tpope/vim-dispatch'
 Plugin 'tpope/vim-fugitive'
@@ -45,7 +36,18 @@ Plugin 'rstacruz/sparkup'
 Plugin 'farseer90718/vim-taskwarrior'
 
 call vundle#end()
-filetype plugin indent on
+
+set shell=zsh
+set runtimepath^=~/.vim/bundle/ctrlp.vim
+autocmd FileType ruby,haml,eruby,yaml,html,javascript,sass,css,scss,cucumber,coffee set ai sw=2 sts=2 et
+let mapleader = ','
+syntax enable
+set background=dark
+let g:solarized_termcolors=256
+colorscheme solarized
+set backspace=indent,eol,start
+set encoding=utf-8
+
 
 let g:ctrlp_map = '<c-p>'
 let g:ctrlp_cmd = 'CtrlP'
