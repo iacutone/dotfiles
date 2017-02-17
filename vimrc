@@ -84,6 +84,12 @@ let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_auto_loc_list = 1
 let g:syntastic_check_on_open = 1
 let g:syntastic_check_on_wq = 0
+
+map <leader>C :CtrlPClearCache<cr>
+
+nmap <silent> <leader>dd <Plug>(devdocs-under-cursor)
+nmap <silent> <leader>da <Plug>DashSearch
+
 let g:task_rc_override = 'rc.defaultwidth=0'
 nnoremap <F2> :set invpaste paste?<CR>
 set pastetoggle=<F2>
