@@ -39,7 +39,9 @@ call vundle#end()
 
 set shell=zsh
 set runtimepath^=~/.vim/bundle/ctrlp.vim
-autocmd FileType ruby,haml,eruby,yaml,html,javascript,sass,css,scss,cucumber,coffee set ai sw=2 sts=2 et
+set autoindent
+autocmd FileType ruby,haml,eruby,yaml,html,javascript,sass,css,scss,cucumber,coffee,sh set ai sw=2 sts=2 et
+autocmd FileType elm set sw=4 sts=4 ts=4
 let mapleader = ','
 syntax enable
 set background=dark
