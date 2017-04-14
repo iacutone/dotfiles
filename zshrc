@@ -62,6 +62,13 @@ source $ZSH/oh-my-zsh.sh
 # else
 #   export EDITOR='mvim'
 # fi
+export EDITOR='vim'
+
+source ~/.bin/tmuxinator.zsh
+
+alias tml="tmux list-sessions"
+alias tma="tmux -2 attach -t $1"
+alias tmk="tmux kill-session -t $1"
 
 # Compilation flags
 # export ARCHFLAGS="-arch x86_64"
