@@ -64,11 +64,10 @@ source $ZSH/oh-my-zsh.sh
 # fi
 export EDITOR='vim'
 
-source ~/.bin/tmuxinator.zsh
-
 alias tml="tmux list-sessions"
 alias tma="tmux -2 attach -t $1"
 alias tmk="tmux kill-session -t $1"
+alias mux="tmuxinator $1"
 
 # Compilation flags
 # export ARCHFLAGS="-arch x86_64"
@@ -90,6 +89,7 @@ alias vi='vim'
 
 export GOPATH=$HOME/go
 export PATH=$PATH:$GOPATH/bin
+source ~/.bash_profile
 
 function play {
   # Skip DASH manifest for speed purposes. This might actually disable
@@ -127,3 +127,7 @@ function configureviewapp {
   echo "======================"
   echo "https://artfully-staging-pr-$pr_id.herokuapp.com/admin configured."
 }
+
+export PATH="$PATH:$HOME/.composer/vendor/bin"
+
+PATH="$PATH:$HOME/anaconda/bin:/usr/bin:/bin:/usr/sbin:/sbin"
