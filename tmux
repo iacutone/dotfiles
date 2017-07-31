@@ -43,7 +43,7 @@ set -g status-interval 60
 set -g status-left-length 30
 set -g status-left '#[fg=colour235,bg=colour252,bold] #S #[fg=colour252,bg=colour238,nobold]#[fg=colour245,bg=colour238,bold] #(whoami) #[fg=colour238,bg=colour234,nobold]'
 set -g status-right-length 115
-set -g status-right "#(~/scripts/weather-forecast.sh) | #(~/scripts/google-music.sh current) | #[fg=white]%H:%M  "
+set -g status-right "#(cat ~/Dropbox/weather.txt) | #(~/scripts/google-music.sh current) | #[fg=white]%H:%M  "
 
 # Reload tmux
 bind-key r source-file ~/.tmux.conf \; display-message "~/.tmux.conf reloaded"
