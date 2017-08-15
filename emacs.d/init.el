@@ -20,6 +20,11 @@
     :config
     (which-key-mode))
 
+(use-package org-bullets
+  :ensure t
+  :config
+  (add-hook 'org-mode-hook (lambda () (org-bullets-mode 1))))
+
 (require 'evil)
 (evil-mode 1)
 
