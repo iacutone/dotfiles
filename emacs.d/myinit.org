@@ -1,0 +1,85 @@
+* interface tweaks
+#+BEGIN_SRC emacs-lisp
+(setq inhibit-startup-message t)
+(tool-bar-mode -1)
+(fset 'yes-or-no-p 'y-or-n-p)
+#+END_SRC
+
+* try
+#+BEGIN_SRC emacs-lisp
+(use-package try
+    :ensure t)
+#+END_SRC
+
+* which key
+#+BEGIN_SRC emacs-lisp
+(use-package which-key
+    :ensure t 
+    :config
+    (which-key-mode))
+#+END_SRC
+* evil mode
+#+BEGIN_SRC emacs-lisp
+(require 'evil)
+(evil-mode 1)
+(setq evil-want-C-i-jump nil)
+#+END_SRC
+* zenburn-theme
+#+BEGIN_SRC emacs-lisp
+(use-package zenburn-theme
+  :ensure t
+  :config (load-theme 'zenburn t))
+#+END_SRC
+* autocomplete
+#+BEGIN_SRC emacs-lisp
+(use-package auto-complete
+  :ensure t
+  :init
+  (progn
+    (ac-config-default)
+    (global-auto-complete-mode t)
+    ))
+#+END_SRC
+* avy
+#+BEGIN_SRC emacs-lisp
+(use-package avy
+  :ensure t
+  :bind ("M-s" . avy-goto-word-1))
+#+END_SRC
+* swiper
+#+BEGIN_SRC emacs-lisp
+(use-package swiper
+  :ensure t
+  :bind
+  ("C-s" . swiper)
+  ("C-r" . swiper))
+#+END_SRC
+* org-bullets
+#+BEGIN_SRC emacs-lisp
+(use-package org-bullets
+  :ensure t
+  :config
+  (add-hook 'org-mode-hook (lambda () (org-bullets-mode 1))))
+#+END_SRC
+
+* ace-window
+#+BEGIN_SRC emacs-lisp
+(use-package ace-window
+  :ensure t
+  :init
+  (progn
+    (global-set-key [remap other-window] 'ace-window)
+    (custom-set-faces
+     '(aw-leading-char-face
+       ((t (:inherit ace-jump-face-foreground :height 3.0))))) 
+    ))
+(global-set-key (kbd "M-p") 'ace-window)
+#+END_SRC
+* helm-config
+#+BEGIN_SRC emacs-lisp
+(require 'helm-config)
+(global-set-key (kbd "M-x") #'helm-M-x)
+(global-set-key (kbd "C-x r b") #'helm-filtered-bookmarks)
+(global-set-key (kbd "C-x C-f") #'helm-find-files)
+(helm-mode 1)
+#+END_SRC
