@@ -1,8 +1,9 @@
 *.swp
 *.swo
-latest.dump
+*.dump
 .env
 .env.test
 .DS_Store
 config/application.yml
 tags
+*~
