@@ -115,3 +115,11 @@
 :config 
 (global-set-key (kbd "C-=") 'er/expand-region))
 #+END_SRC
+* load external el files
+<#+BEGIN_SRC emacs-lisp
+(defun load-if-exists (f)
+  (if file-readable-p f)
+    (load-file f)))
+
+; (load-if-exists "~/Dropbox/something.el")
+#+END_SRC
