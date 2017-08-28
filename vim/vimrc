@@ -25,7 +25,7 @@ set hlsearch  " highlight matches
 " turn off search highlight
 nnoremap <leader><space> :nohlsearch<CR>
 
-nnoremap <leader>s :Ack <C-R><C-W><CR> " map leader for Ack
+noremap <leader>s :Ack <C-R><C-W><CR> " map leader for Ack
 
 " Easier window management
 map <C-h> <C-w>h
@@ -117,12 +117,7 @@ colorscheme solarized
 set backspace=indent,eol,start
 set encoding=utf-8
 
-" let g:ctrlp_map = '<c-p>'
-" let g:ctrlp_cmd = 'CtrlP'
 set runtimepath^=~/.vim/bundle/ctrlp.vim
-" let g:ctrlp_max_files=0
-" let g:ctrlp_max_depth=40
-" let g:ctrlp_show_hidden = 1
 let g:ctrlp_user_command = 'ack -i --noenv --nocolor --nogroup -g "" %s'
 
 
@@ -162,11 +157,6 @@ map <leader>C :CtrlPClearCache<cr>
 
 nmap <silent> <leader>dd <Plug>(devdocs-under-cursor)
 nmap <silent> <leader>da <Plug>DashSearch
-
-" Easy bindings for its various modes
-nmap <leader>bb :CtrlPBuffer<cr>
-nmap <leader>bm :CtrlPMixed<cr>
-nmap <leader>bs :CtrlPMRU<cr>
 
 let g:task_rc_override = 'rc.defaultwidth=0'
 nnoremap <F2> :set invpaste paste?<CR>
