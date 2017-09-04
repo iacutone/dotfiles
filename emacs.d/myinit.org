@@ -4,7 +4,6 @@
 (tool-bar-mode -1)
 (fset 'yes-or-no-p 'y-or-n-p)
 #+END_SRC
-
 * try
 #+BEGIN_SRC emacs-lisp
 (use-package try
@@ -121,4 +120,14 @@
 ;    (load-file f)))
 
 ; (load-if-exists "~/Dropbox/something.el")
+#+END_SRC
+* eyebrowse
+#+BEGIN_SRC emacs-lisp
+(use-package eyebrowse
+:ensure t
+:config 
+)
+
+(eyebrowse-mode t)
+(eyebrowse-setup-opinionated-keys)
 #+END_SRC
