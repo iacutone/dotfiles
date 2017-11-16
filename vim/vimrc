@@ -17,8 +17,8 @@ set path+=**
 " Display matching files on tab complete
 set wildmenu
 
-" Make ctags
-command! MakeTags !ctags -R .
+" Create ctags
+nnoremap <leader>ct :silent !ctags -R --languages=ruby --exclude=.git --exclude=log . $(bundle list --paths)
 
 " Yank to OSX clipboard
 set clipboard=unnamed
@@ -40,9 +40,8 @@ map <C-j> <C-w>j
 map <C-k> <C-w>k
 map <C-l> <C-w>l
 
-" Cmd + Shift tab change (only Mac Vim)
-map <D-S-]> gt
-map <D-S-[> gT]
+" Next buffer
+nnoremap <Tab> :bnext<cr>
 
 set foldmethod=marker
 set foldlevel=0
@@ -65,13 +64,10 @@ Plugin 'tpope/vim-endwise'
 Plugin 'janko-m/vim-test'
 Plugin 'majutsushi/tagbar'
 Plugin 'airblade/vim-gitgutter'
-Plugin 'kchmck/vim-coffee-script'
-Plugin 'mattn/emmet-vim'
 Plugin 'itchyny/lightline.vim'
 Plugin 'Valloric/YouCompleteMe'
 Plugin 'Raimondi/delimitMate'
 Plugin 'rizzatti/dash.vim'
-" Plugin 'vim-syntastic/syntastic'
 Plugin 'w0rp/ale'
 Plugin 'mileszs/ack.vim'
 Plugin 'stefanoverna/vim-i18n'
@@ -86,16 +82,6 @@ Plugin 'tbabej/taskwiki'
 Plugin 'vimwiki/vimwiki'
 Plugin 'mhinz/vim-startify'
 Plugin 'bogado/file-line'
-Plugin 'elixir-lang/vim-elixir'
-Plugin  'c-brenn/phoenix.vim'
-" Plugin 'tpope/vim-projectionist'
-" Plugin 'godlygeek/tabular'
-" Plugin 'ervandew/supertab'
-" Plugin 'Chiel92/vim-autoformat'
-" Plugin 'posva/vim-vue'
-Plugin 'ElmCast/elm-vim'
-" Plugin 'lambdatoast/elm.vim'
-" Plugin 'benmills/vimux
 Plugin 'junegunn/fzf.vim'
 call vundle#end()
 filetype plugin indent on
@@ -144,13 +130,6 @@ let b:surround_{char2nr('=')} = "<%= \r %>"
 let b:surround_{char2nr('-')} = "<% \r %>"
 vmap <Leader>z :call I18nTranslateString()<CR>
 vmap <Leader>dt :call I18nDisplayTranslation()<CR>
-
-let g:syntastic_always_populate_loc_list = 1
-let g:syntastic_auto_loc_list = 1
-let g:syntastic_check_on_open = 1
-let g:syntastic_check_on_wq = 0
-
-" map <leader>C :CtrlPClearCache<cr>
 
 nmap <silent> <leader>dd <Plug>(devdocs-under-cursor)
 nmap <silent> <leader>da <Plug>DashSearch
