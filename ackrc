@@ -1,3 +1,11 @@
+# Colors
+--color-filename=bold red
+--color-match=bold green
+
+# Force color and header, even in less -R.
+--color
+--group
+
 --ignore-dir=log
 --ignore-dir=public
 --ignore-dir=vendor
