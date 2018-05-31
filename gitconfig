@@ -8,3 +8,4 @@
   co = checkout
   br = branch
   l = "!. ~/.githelpers && pretty_git_log"
+  poh = push origin head
