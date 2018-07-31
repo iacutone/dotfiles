@@ -8,7 +8,6 @@
 
 set modelines=1
 set shell=zsh
-set nocompatible
 syntax enable
 
 " Recursive searching into sub dirs
@@ -51,7 +50,6 @@ filetype off     " required
 set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
 Plugin 'ap/vim-css-color'
-Plugin 'docunext/closetag.vim'
 Plugin 'VundleVim/Vundle.vim'
 Plugin 'tpope/vim-bundler'
 Plugin 'tpope/vim-rake'
@@ -65,7 +63,6 @@ Plugin 'janko-m/vim-test'
 Plugin 'majutsushi/tagbar'
 Plugin 'airblade/vim-gitgutter'
 Plugin 'itchyny/lightline.vim'
-Plugin 'Valloric/YouCompleteMe'
 Plugin 'Raimondi/delimitMate'
 Plugin 'rizzatti/dash.vim'
 Plugin 'w0rp/ale'
@@ -75,14 +72,13 @@ Plugin 'pbrisbin/vim-mkdir'
 Plugin 'altercation/vim-colors-solarized'
 Plugin 'easymotion/vim-easymotion'
 Plugin 'rhysd/devdocs.vim'
-Plugin 'terryma/vim-multiple-cursors'
 Plugin 'rstacruz/sparkup'
 Plugin 'farseer90718/vim-taskwarrior'
 Plugin 'tbabej/taskwiki'
 Plugin 'vimwiki/vimwiki'
 Plugin 'mhinz/vim-startify'
-Plugin 'bogado/file-line'
 Plugin 'junegunn/fzf.vim'
+Plugin 'sheerun/vim-polyglot'
 call vundle#end()
 filetype plugin indent on
 " }}}
@@ -120,7 +116,7 @@ nmap <silent> <leader>t :TestFile<CR>
 nmap <silent> <leader>a :TestSuite<CR>
 nmap <silent> <leader>l :TestLast<CR>
 nmap <silent> <leader>g :TestVisit<CR>
-" let test#strategy = "dispatch"
+" let test#strategy = 'vtr'
 let test#filename_modifier = ':.'
 
 let g:tagbar_ctags_bin='/usr/local/bin/ctags'
