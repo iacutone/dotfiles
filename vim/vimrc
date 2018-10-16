@@ -17,7 +17,8 @@ set path+=**
 set wildmenu
 
 " Create ctags
-nnoremap <leader>ct :silent !ctags -R --languages=ruby --exclude=.git --exclude=log . $(bundle list --paths)
+command! MakeTags !ctags -R .
+" nnoremap <leader>ct :silent !ctags -R --languages=ruby --exclude=.git --exclude=log . $(bundle list --paths)
 
 " Yank to OSX clipboard
 set clipboard=unnamed
@@ -30,8 +31,6 @@ set hlsearch  " highlight matches
 
 " turn off search highlight
 nnoremap <leader><space> :nohlsearch<CR>
-
-noremap <leader>s :Ack <C-R><C-W><CR> " map leader for Ack
 
 " Easier window management
 map <C-h> <C-w>h
@@ -135,8 +134,6 @@ nnoremap <F2> :set invpaste paste?<CR>
 set pastetoggle=<F2>
 set showmode
 
-let test#ruby#rspec#executable = 'spring rspec'
-
 cnoreabbrev Ack Ack!
 
 " Tell ack.vim to use ag (the Silver Searcher) instead
@@ -211,3 +208,13 @@ function! s:MaybeUpdateLightline()
   end
 endfunction
 " }}}
+
+" clear highlights by hitting ESC
+" or by hitting enter in normal mode
+nnoremap <CR> :noh<CR><CR>
+
+" Don't add the comment prefix when I hit enter or o/O on a comment line.
+autocmd FileType * setlocal formatoptions-=r formatoptions-=o
+
+" from Jamie
+inoremap <tab> <c-n><c-p>
