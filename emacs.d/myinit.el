@@ -1,25 +1,16 @@
- interface tweaks
-#+BEGIN_SRC emacs-lisp
 (setq inhibit-startup-message t)
 (tool-bar-mode -1)
 (menu-bar-mode -1)
 (fset 'yes-or-no-p 'y-or-n-p)
-#+END_SRC
-* try
-#+BEGIN_SRC emacs-lisp
+
 (use-package try
     :ensure t)
-#+END_SRC
 
-* which key
-#+BEGIN_SRC emacs-lisp
 (use-package which-key
     :ensure t 
     :config
     (which-key-mode))
-#+END_SRC
-* evil mode
-#+BEGIN_SRC emacs-lisp
+
 (require 'evil)
 (evil-mode 1)
 (setq evil-want-C-i-jump nil)
@@ -28,15 +19,11 @@
 :ensure t
 :config 
 )
-#+END_SRC
-* zenburn-theme
-#+BEGIN_SRC emacs-lisp
+
 (use-package zenburn-theme
   :ensure t
   :config (load-theme 'zenburn t))
-#+END_SRC
-* autocomplete
-#+BEGIN_SRC emacs-lisp
+
 (use-package auto-complete
   :ensure t
   :init
@@ -44,23 +31,17 @@
     (ac-config-default)
     (global-auto-complete-mode t)
     ))
-#+END_SRC
-* avy
-#+BEGIN_SRC emacs-lisp
+
 (use-package avy
   :ensure t
   :bind ("M-s" . avy-goto-word-1))
-#+END_SRC
-* swiper
-#+BEGIN_SRC emacs-lisp
+
 (use-package swiper
   :ensure t
   :bind
   ("C-s" . swiper)
   ("C-r" . swiper))
-#+END_SRC
-* org mode
-#+BEGIN_SRC emacs-lisp
+
 (use-package org-bullets
   :ensure t
   :config
@@ -88,9 +69,7 @@
 	"* TODO %?\n%T")))
 
 (setq org-log-done 'time)
-#+END_SRC
-* ace-window
-#+BEGIN_SRC emacs-lisp
+
 (use-package ace-window
   :ensure t
   :init
@@ -101,9 +80,7 @@
        ((t (:inherit ace-jump-face-foreground :height 3.0))))) 
     ))
 (global-set-key (kbd "M-p") 'ace-window)
-#+END_SRC
-* helm-config
-#+BEGIN_SRC emacs-lisp
+
 (require 'helm-config)
 (global-set-key (kbd "M-x") #'helm-M-x)
 (global-set-key (kbd "C-x r b") #'helm-filtered-bookmarks)
@@ -128,16 +105,12 @@
 (global-set-key (kbd "M-x") #'helm-M-x)
 (global-set-key (kbd "s-f") #'helm-projectile-ag)
 (global-set-key (kbd "s-t") #'helm-projectile-find-file-dwim)
-#+END_SRC
-* flycheck
-#+BEGIN_SRC emacs-lisp
+
 (use-package flycheck
   :ensure t
   :init
   (global-flycheck-mode t))
-#+END_SRC
-* ruby
-#+BEGIN_SRC emacs-lisp
+
 (use-package inf-ruby
 :ensure t
 :config
@@ -164,16 +137,12 @@
 )
 (require 'rvm)
 (rvm-use-default)
-#+END_SRC
-* python
-#+BEGIN_SRC emacs-lisp
+
 (use-package elpy
 :ensure t
 :config 
 (elpy-enable))
-#+END_SRC
-* misc packages
-#+BEGIN_SRC emacs-lisp
+
 (global-hl-line-mode t)
 
 ; flashes the cursor's line when you scroll
@@ -204,23 +173,17 @@
                             (t default-color))))
            (set-face-background 'mode-line (car color))
            (set-face-foreground 'mode-line (cdr color))))))
-#+END_SRC
-* load external el files
-#+BEGIN_SRC emacs-lisp
+
 ;(defun load-if-exists (f)
 ;  (if file-readable-p f)
 ;    (load-file f)))
 
 ; (load-if-exists "~/Dropbox/something.el")
-#+END_SRC
-* bash env vars
-#+BEGIN_SRC emacs-lisp
+
 (exec-path-from-shell-initialize)
 (when (memq window-system '(mac ns))
       (exec-path-from-shell-initialize))
-#+END_SRC
-* google
-#+BEGIN_SRC emacs-lisp
+
 (use-package org-gcal
   :ensure t
   :config
@@ -240,9 +203,7 @@
   :config
   (require 'calfw) 
   (require 'calfw-org))
-#+END_SRC
-* eyebrowse
-#+BEGIN_SRC emacs-lisp
+
 (use-package eyebrowse
 :ensure t
 :config 
@@ -250,15 +211,10 @@
 
 (eyebrowse-mode t)
 (eyebrowse-setup-opinionated-keys)
-#+END_SRC
-* powerline
-#+BEGIN_SRC emacs-lisp
+
 (require 'powerline)
 (powerline-default-theme)
-#+END_SRC
-* projectile
-* dumb-jump
-#+BEGIN_SRC emacs-lisp
+
 (use-package dumb-jump
   :bind (("M-g o" . dumb-jump-go-other-window)
          ("M-g j" . dumb-jump-go)
@@ -268,15 +224,11 @@
   :config (setq dumb-jump-selector 'helm)
   :ensure)
 (dumb-jump-mode)
-#+END_SRC
-* org-mac-link
- #+BEGIN_SRC emacs-lisp
- (use-package org-mac-link
+
+(use-package org-mac-link
   :ensure t
   :config)
 (add-hook 'org-mode-hook (lambda () 
   (define-key org-mode-map (kbd "C-c g") 'org-mac-chrome-insert-frontmost-url)))
- #+END_SRC
-* notmuch
- #+BEGIN_SRC emacs-lisp
- #+END_SRC
+
+
