@@ -39,4 +39,5 @@ windows:
   - server: foreman start -f Procfile.dev
   - logs: tail -f log/development.log
   - console: rails c
+  - emacs: emacs
 

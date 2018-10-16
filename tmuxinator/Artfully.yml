@@ -37,6 +37,6 @@ windows:
       panes:
         - vi
   - server: foreman start -f Procfile.dev
-  - logs: tail -f log/development.log
+  - logs: tail -f log/development.log | grep -v 'Delayed::Backend::ActiveRecord::Job'
   - console: rails c
 
