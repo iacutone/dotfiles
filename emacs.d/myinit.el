@@ -66,7 +66,18 @@
 	 ("y" "Youtube" entry (file+headline "~/Dropbox/orgfiles/youtube.org" "Youtube")
 	  "* Note %?\n%T")
 	("t" "To Do Item" entry (file+headline "~/Dropbox/orgfiles/todo.org" "To Do Items")
+	"* TODO %?\n%T")
+	("w" "Work To Do Item" entry (file+headline "~/Dropbox/orgfiles/todo.org" "Work To Do Items")
 	"* TODO %?\n%T")))
+
+(defun make-capture-frame ()
+ "Create a new frame and run org-capture."
+ (interactive)
+ (make-frame '((name . "capture")))
+ (select-frame-by-name "capture")
+ (delete-other-windows)
+ (org-capture))
+
 
 (setq org-log-done 'time)
 
@@ -80,12 +91,6 @@
        ((t (:inherit ace-jump-face-foreground :height 3.0))))) 
     ))
 (global-set-key (kbd "M-p") 'ace-window)
-
-(require 'helm-config)
-(global-set-key (kbd "M-x") #'helm-M-x)
-(global-set-key (kbd "C-x r b") #'helm-filtered-bookmarks)
-(global-set-key (kbd "C-x C-f") #'helm-find-files)
-(helm-mode 1)
 
 (use-package helm-projectile
 :ensure t
@@ -101,6 +106,12 @@
 (use-package helm-ag
 :ensure t
 :config)
+
+(require 'helm-config)
+(global-set-key (kbd "M-x") #'helm-M-x)
+(global-set-key (kbd "C-x r b") #'helm-filtered-bookmarks)
+(global-set-key (kbd "C-x C-f") #'helm-find-files)
+(helm-mode 1)
 
 (global-set-key (kbd "M-x") #'helm-M-x)
 (global-set-key (kbd "s-f") #'helm-projectile-ag)
@@ -181,8 +192,8 @@
 ; (load-if-exists "~/Dropbox/something.el")
 
 (exec-path-from-shell-initialize)
-(when (memq window-system '(mac ns))
-      (exec-path-from-shell-initialize))
+(when (memq window-system '(mac ns x))
+  (exec-path-from-shell-initialize))
 
 (use-package org-gcal
   :ensure t
@@ -225,10 +236,84 @@
   :ensure)
 (dumb-jump-mode)
 
-(use-package org-mac-link
-  :ensure t
-  :config)
-(add-hook 'org-mode-hook (lambda () 
-  (define-key org-mode-map (kbd "C-c g") 'org-mac-chrome-insert-frontmost-url)))
+(use-package grab-mac-link
+ :ensure t
+ :config)
 
+; https://blog.tohojo.dk/2015/10/integrating-hugo-into-emacs.html
 
+(setq hugo-base-dir "~/blog/"
+      hugo-buffer "*hugo*")
+
+(defun hugo-new-post ()
+  (interactive)
+  (let* ((title (read-from-minibuffer "Title: "))
+         (filename (concat "/"
+		    (read-from-minibuffer "Filename: "
+		     (replace-regexp-in-string "-\\.md" ".md"
+		      (concat (downcase
+			       (replace-regexp-in-string "[^a-z0-9]+" "-"
+				title))
+                                                           ".md")))))
+         (path (concat hugo-base-dir "content/posts/post" filename)))
+
+    (if (file-exists-p path)
+        (message "File already exists!")
+      (hugo-command "new --kind posts posts/post/" filename)
+      (find-file path)
+      (hugo-replace-key "title" title)
+      (goto-char (point-max))
+      (save-buffer))))
+
+(defun hugo-publish ()
+  (interactive)
+  (let* ((default-directory (concat (expand-file-name hugo-base-dir) "/")))
+    (when (call-process "bash" nil hugo-buffer t  "~/scripts/deploy_blog.sh")
+      (message "New blog post published"))))
+
+(defun hugo-command (&rest args)
+  (let ((default-directory (expand-file-name hugo-base-dir)))
+    (apply 'call-process "hugo" nil hugo-buffer t args)))
+
+(defun hugo-replace-key (key val)
+  (save-excursion
+    (goto-char (point-min))
+    ; quoted value
+    (if (and (re-search-forward (concat key " = \"") nil t)
+               (re-search-forward "[^\"]+" (line-end-position) t))
+        (or (replace-match val) t) ; ensure we return t
+      ; unquoted value
+      (when (and (re-search-forward (concat key " = ") nil t)
+                 (re-search-forward ".+" (line-end-position) t))
+        (or (replace-match val) t)))))
+
+(defun hugo-undraft ()
+  (interactive)
+  (when (and (hugo-replace-key "date" (iso-timestamp))
+             (hugo-replace-key "draft" "false"))
+    (save-buffer)
+    (message "Removed draft status and updated timestamp")))
+
+(defun iso-timestamp ()
+  (concat (format-time-string "%Y-%m-%dT%T")
+          ((lambda (x) (concat (substring x 0 3) ":" (substring x 3 5)))
+           (format-time-string "%z"))))
+
+(defun hugo-server (&optional arg)
+  (interactive "P")
+  (let* ((default-directory (concat (expand-file-name hugo-base-dir) "/"))
+         (proc (get-buffer-process hugo-buffer)))
+    (if (and proc (process-live-p proc))
+        (progn (interrupt-process proc)
+               (message "Stopped Hugo server"))
+      (start-process "hugo" hugo-buffer "hugo" "server")
+      (message "Started Hugo server")
+      (unless arg
+        (browse-url "http://localhost:1313/")))))
+
+(require 'wc-mode)
+(require 'org-pomodoro)
+(require 'writegood-mode)
+(require 'olivetti)
+(require 'writeroom-mode)
+; (require 'org-ref)
