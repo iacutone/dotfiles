@@ -23,6 +23,7 @@
 (use-package zenburn-theme
   :ensure t
   :config (load-theme 'zenburn t))
+(require 'poet-theme)
 
 (use-package auto-complete
   :ensure t
@@ -61,6 +62,8 @@
 (setq org-capture-templates
       '(("n" "Note" entry (file+headline "~/Dropbox/orgfiles/notes.org" "Notes")
 	 "* Note %?\n%T")
+	("i" "Blog Idea" entry (file+headline "~/Dropbox/orgfiles/blog.org" "Blog Idea")
+	 "* Blog %?\n%T")
 	("l" "Link" entry (file+headline "~/Dropbox/orgfiles/links.org" "Links")
 	 "* %? %^L %^g \n%T" :prepend t)
 	 ("y" "Youtube" entry (file+headline "~/Dropbox/orgfiles/youtube.org" "Youtube")
@@ -70,6 +73,8 @@
 	("w" "Work To Do Item" entry (file+headline "~/Dropbox/orgfiles/todo.org" "Work To Do Items")
 	"* TODO %?\n%T")))
 
+(setq bookmark-default-file "~/Dropbox/orgfiles/bookmarks.bmk" bookmark-save-flag 1)
+
 (defun make-capture-frame ()
  "Create a new frame and run org-capture."
  (interactive)
@@ -78,6 +83,10 @@
  (delete-other-windows)
  (org-capture))
 
+(defun channing/archive-when-done ()
+  "Archive current entry if it is marked as DONE (see `org-done-keywords')."
+  (when (org-entry-is-done-p)
+    (org-archive-subtree-default)))
 
 (setq org-log-done 'time)
 
@@ -108,9 +117,6 @@
 :config)
 
 (require 'helm-config)
-(global-set-key (kbd "M-x") #'helm-M-x)
-(global-set-key (kbd "C-x r b") #'helm-filtered-bookmarks)
-(global-set-key (kbd "C-x C-f") #'helm-find-files)
 (helm-mode 1)
 
 (global-set-key (kbd "M-x") #'helm-M-x)
@@ -141,13 +147,11 @@
 )
 (require 'rspec-mode)
 (add-hook 'after-init-hook 'inf-ruby-switch-setup)
-
-(use-package rvm
-:ensure t
-:config
-)
-(require 'rvm)
-(rvm-use-default)
+(require 'ruby-electric)
+(add-hook 'ruby-mode-hook 'ruby-electric-mode)
+(require 'chruby)
+(chruby "2.5.3")
+(require 'rinari)
 
 (use-package elpy
 :ensure t
@@ -184,12 +188,6 @@
                             (t default-color))))
            (set-face-background 'mode-line (car color))
            (set-face-foreground 'mode-line (cdr color))))))
-
-;(defun load-if-exists (f)
-;  (if file-readable-p f)
-;    (load-file f)))
-
-; (load-if-exists "~/Dropbox/something.el")
 
 (exec-path-from-shell-initialize)
 (when (memq window-system '(mac ns x))
@@ -236,30 +234,24 @@
   :ensure)
 (dumb-jump-mode)
 
-(use-package grab-mac-link
- :ensure t
- :config)
-
-; https://blog.tohojo.dk/2015/10/integrating-hugo-into-emacs.html
-
 (setq hugo-base-dir "~/blog/"
       hugo-buffer "*hugo*")
 
 (defun hugo-new-post ()
   (interactive)
   (let* ((title (read-from-minibuffer "Title: "))
-         (filename (concat "/"
+         (filename (concat "post/"
 		    (read-from-minibuffer "Filename: "
 		     (replace-regexp-in-string "-\\.md" ".md"
 		      (concat (downcase
 			       (replace-regexp-in-string "[^a-z0-9]+" "-"
 				title))
                                                            ".md")))))
-         (path (concat hugo-base-dir "content/posts/post" filename)))
+         (path (concat hugo-base-dir "content/" filename)))
 
     (if (file-exists-p path)
         (message "File already exists!")
-      (hugo-command "new --kind posts posts/post/" filename)
+      (hugo-command "new" filename)
       (find-file path)
       (hugo-replace-key "title" title)
       (goto-char (point-max))
@@ -316,4 +308,14 @@
 (require 'writegood-mode)
 (require 'olivetti)
 (require 'writeroom-mode)
+(global-set-key (kbd "<f12>") 'tomatinho)
 ; (require 'org-ref)
+
+(require 'org-trello)
+
+(require 'deadgrep)
+(global-set-key (kbd "<f5>") #'deadgrep)
+
+(require 'shackle)
+
+(require 'better-defaults)

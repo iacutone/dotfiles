@@ -1,10 +1,11 @@
- interface tweaks
+* interface tweaks
 #+BEGIN_SRC emacs-lisp
 (setq inhibit-startup-message t)
 (tool-bar-mode -1)
 (menu-bar-mode -1)
 (fset 'yes-or-no-p 'y-or-n-p)
 #+END_SRC
+
 * try
 #+BEGIN_SRC emacs-lisp
 (use-package try
@@ -18,6 +19,7 @@
     :config
     (which-key-mode))
 #+END_SRC
+
 * evil mode
 #+BEGIN_SRC emacs-lisp
 (require 'evil)
@@ -29,12 +31,15 @@
 :config 
 )
 #+END_SRC
-* zenburn-theme
+
+* themes
 #+BEGIN_SRC emacs-lisp
 (use-package zenburn-theme
   :ensure t
   :config (load-theme 'zenburn t))
+(use-package 'poet-theme)
 #+END_SRC
+
 * autocomplete
 #+BEGIN_SRC emacs-lisp
 (use-package auto-complete
@@ -45,12 +50,14 @@
     (global-auto-complete-mode t)
     ))
 #+END_SRC
+
 * avy
 #+BEGIN_SRC emacs-lisp
 (use-package avy
   :ensure t
   :bind ("M-s" . avy-goto-word-1))
 #+END_SRC
+
 * swiper
 #+BEGIN_SRC emacs-lisp
 (use-package swiper
@@ -59,6 +66,7 @@
   ("C-s" . swiper)
   ("C-r" . swiper))
 #+END_SRC
+
 * org mode
 #+BEGIN_SRC emacs-lisp
 (use-package org-bullets
@@ -80,15 +88,35 @@
 (setq org-capture-templates
       '(("n" "Note" entry (file+headline "~/Dropbox/orgfiles/notes.org" "Notes")
 	 "* Note %?\n%T")
+	("i" "Blog Idea" entry (file+headline "~/Dropbox/orgfiles/blog.org" "Blog Idea")
+	 "* Blog %?\n%T")
 	("l" "Link" entry (file+headline "~/Dropbox/orgfiles/links.org" "Links")
 	 "* %? %^L %^g \n%T" :prepend t)
 	 ("y" "Youtube" entry (file+headline "~/Dropbox/orgfiles/youtube.org" "Youtube")
 	  "* Note %?\n%T")
 	("t" "To Do Item" entry (file+headline "~/Dropbox/orgfiles/todo.org" "To Do Items")
+	"* TODO %?\n%T")
+	("w" "Work To Do Item" entry (file+headline "~/Dropbox/orgfiles/todo.org" "Work To Do Items")
 	"* TODO %?\n%T")))
+
+(setq bookmark-default-file "~/Dropbox/orgfiles/bookmarks.bmk" bookmark-save-flag 1)
+
+(defun make-capture-frame ()
+ "Create a new frame and run org-capture."
+ (interactive)
+ (make-frame '((name . "capture")))
+ (select-frame-by-name "capture")
+ (delete-other-windows)
+ (org-capture))
+
+(defun channing/archive-when-done ()
+  "Archive current entry if it is marked as DONE (see `org-done-keywords')."
+  (when (org-entry-is-done-p)
+    (org-archive-subtree-default)))
 
 (setq org-log-done 'time)
 #+END_SRC
+
 * ace-window
 #+BEGIN_SRC emacs-lisp
 (use-package ace-window
@@ -102,14 +130,9 @@
     ))
 (global-set-key (kbd "M-p") 'ace-window)
 #+END_SRC
-* helm-config
-#+BEGIN_SRC emacs-lisp
-(require 'helm-config)
-(global-set-key (kbd "M-x") #'helm-M-x)
-(global-set-key (kbd "C-x r b") #'helm-filtered-bookmarks)
-(global-set-key (kbd "C-x C-f") #'helm-find-files)
-(helm-mode 1)
 
+* Helm-config
+#+BEGIN_SRC emacs-lisp
 (use-package helm-projectile
 :ensure t
 :config)
@@ -125,10 +148,14 @@
 :ensure t
 :config)
 
+(require 'helm-config)
+(helm-mode 1)
+
 (global-set-key (kbd "M-x") #'helm-M-x)
 (global-set-key (kbd "s-f") #'helm-projectile-ag)
 (global-set-key (kbd "s-t") #'helm-projectile-find-file-dwim)
 #+END_SRC
+
 * flycheck
 #+BEGIN_SRC emacs-lisp
 (use-package flycheck
@@ -136,6 +163,7 @@
   :init
   (global-flycheck-mode t))
 #+END_SRC
+
 * ruby
 #+BEGIN_SRC emacs-lisp
 (use-package inf-ruby
@@ -157,14 +185,13 @@
 )
 (require 'rspec-mode)
 (add-hook 'after-init-hook 'inf-ruby-switch-setup)
-
-(use-package rvm
-:ensure t
-:config
-)
-(require 'rvm)
-(rvm-use-default)
+(require 'ruby-electric)
+(add-hook 'ruby-mode-hook 'ruby-electric-mode)
+(require 'chruby)
+(chruby "2.5.3")
+(require 'rinari)
 #+END_SRC
+
 * python
 #+BEGIN_SRC emacs-lisp
 (use-package elpy
@@ -172,6 +199,7 @@
 :config 
 (elpy-enable))
 #+END_SRC
+
 * misc packages
 #+BEGIN_SRC emacs-lisp
 (global-hl-line-mode t)
@@ -205,20 +233,14 @@
            (set-face-background 'mode-line (car color))
            (set-face-foreground 'mode-line (cdr color))))))
 #+END_SRC
-* load external el files
-#+BEGIN_SRC emacs-lisp
-;(defun load-if-exists (f)
-;  (if file-readable-p f)
-;    (load-file f)))
 
-; (load-if-exists "~/Dropbox/something.el")
-#+END_SRC
 * bash env vars
 #+BEGIN_SRC emacs-lisp
 (exec-path-from-shell-initialize)
-(when (memq window-system '(mac ns))
-      (exec-path-from-shell-initialize))
+(when (memq window-system '(mac ns x))
+  (exec-path-from-shell-initialize))
 #+END_SRC
+
 * google
 #+BEGIN_SRC emacs-lisp
 (use-package org-gcal
@@ -241,6 +263,7 @@
   (require 'calfw) 
   (require 'calfw-org))
 #+END_SRC
+
 * eyebrowse
 #+BEGIN_SRC emacs-lisp
 (use-package eyebrowse
@@ -251,11 +274,13 @@
 (eyebrowse-mode t)
 (eyebrowse-setup-opinionated-keys)
 #+END_SRC
+
 * powerline
 #+BEGIN_SRC emacs-lisp
 (require 'powerline)
 (powerline-default-theme)
 #+END_SRC
+
 * projectile
 * dumb-jump
 #+BEGIN_SRC emacs-lisp
@@ -269,19 +294,10 @@
   :ensure)
 (dumb-jump-mode)
 #+END_SRC
-* org-mac-link
- #+BEGIN_SRC emacs-lisp
- (use-package org-mac-link
-  :ensure t
-  :config)
-(add-hook 'org-mode-hook (lambda () 
-  (define-key org-mode-map (kbd "C-c g") 'org-mac-chrome-insert-frontmost-url)))
- #+END_SRC
-* notmuch
 
 * hugo
- #+BEGIN_SRC emacs-lisp
-; https://blog.tohojo.dk/2015/10/integrating-hugo-into-emacs.html
+https://blog.tohojo.dk/2015/10/integrating-hugo-into-emacs.html
+#+BEGIN_SRC emacs-lisp
 
 (setq hugo-base-dir "~/blog/"
       hugo-buffer "*hugo*")
@@ -352,4 +368,72 @@
       (unless arg
         (browse-url "http://localhost:1313/")))))
 
- #+END_SRC
+#+END_SRC
+
+* writing tools
+#+BEGIN_SRC emacs-lisp
+(require 'wc-mode)
+(require 'org-pomodoro)
+(require 'writegood-mode)
+(require 'olivetti)
+(require 'writeroom-mode)
+(global-set-key (kbd "<f12>") 'tomatinho)
+; (require 'org-ref)
+#+END_SRC
+
+* org trello
+#+BEGIN_SRC emacs-lisp
+(require 'org-trello)
+#+END_SRC
+
+* grepping
+#+BEGIN_SRC emacs-lisp
+(require 'deadgrep)
+(global-set-key (kbd "<f5>") #'deadgrep)
+#+END_SRC
+
+#* grab links
+##+BEGIN_SRC emacs-lisp
+#(add-hook 'org-mode-hook (lambda () 
+#			  (define-key org-mode-map (kbd "C-c g") 'org-mac-grab-link)))
+
+#(use-package org-mac-link
+# :ensure t
+# :if (eq system-type 'darwin)
+# :bind ("C-c v" . my/quick-url-note)
+# :config
+# (defun my/quick-url-note ()
+#  "Fastest way to capture a web page link"
+#  (interactive)
+#  (org-capture nil "n")
+#  (org-mac-chrome-insert-frontmost-url)
+#  (org-capture-finalize)))
+
+#(defun my/last-captured-org-note ()
+# "Move to the end of penultimate line of the last org capture note."
+# (interactive)
+# (find-file "~/Dropbox/orgfiles/links.org")
+# (end-of-buffer)
+# (forward-line -2)
+# (org-end-of-line))
+##+END_SRC
+
+#* new shit
+##-BEGIN_SRC emacs-lisp
+#(use-package org-noter
+# :ensure t)
+
+#(use-package swiper-helm
+# :ensure t)
+##+END_SRC
+* shackle
+#+BEGIN_SRC emacs-lisp
+(require 'shackle)
+#+END_SRC
+
+* better defaults
+#+BEGIN_SRC emacs-lisp
+(require 'better-defaults)
+#+END_SRC
+
+
