@@ -1,5 +1,6 @@
 --recurse=yes
 --exclude=.git
 --exclude=log
+--exclude=node_modules
 --languages=-javascript,sql
 --append

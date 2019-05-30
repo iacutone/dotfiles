@@ -7,7 +7,7 @@ alias tma="tmux -2 attach -t $1"
 alias tmk="tmux kill-session -t $1"
 alias mux="tmuxinator $1"
 alias subl="sublime"
-alias vi='vim'
+alias vi='nvim'
 
 
 # =============
@@ -18,6 +18,9 @@ export ZSH=/Users/iacutone/.oh-my-zsh
 export EDITOR='vim'
 export PATH="$HOME/bin:$PATH"
 export GOPATH=$HOME/go
+export ES_HOME=/usr/local/bin/elasticsearch
+export RUBYMOTION_ANDROID_SDK=/Users/iacutone/.rubymotion-android/sdk
+export RUBYMOTION_ANDROID_NDK=/Users/iacutone/.rubymotion-android/ndk
 
 ZSH_THEME="theunraveler"
 plugins=(git bundler osx rake ruby rails history-substring-search)
@@ -29,7 +32,8 @@ plugins=(git bundler osx rake ruby rails history-substring-search)
 
 source $ZSH/oh-my-zsh.sh
 source ~/.bash_profile
-source $HOME/.rvm/scripts/rvm
+source /usr/local/share/chruby/chruby.sh
+source /usr/local/opt/chruby/share/chruby/auto.sh
 
 
 # =============
@@ -67,7 +71,7 @@ function configureviewapp {
   heroku config:set WEBSOLR_URL=$ARTFULLY_WEBSOLR_URL --app artfully-staging-pr-$pr_id && heroku config:set DATABASE_URL=$ARTFULLY_DATABASE_URL --app artfully-staging-pr-$pr_id
   heroku run rake db:migrate --app artfully-staging-pr-$pr_id
 #  heroku config:set SNS_TOPIC_NEW_DONATION=$ARTFULLY_SNS_TOPIC_NEW_DONATION --app artfully-staging-pr-$pr_id
- # heroku config:set SNS_TOPIC_NEW_FS_DONATION=$ARTFULLY_SNS_TOPIC_NEW_FS_DONATION --app artfully-staging-pr-$pr_id
+#  heroku config:set SNS_TOPIC_NEW_FS_DONATION=$ARTFULLY_SNS_TOPIC_NEW_FS_DONATION --app artfully-staging-pr-$pr_id
 
   echo "======================"
   echo "https://artfully-staging-pr-$pr_id.herokuapp.com/admin configured."
@@ -111,4 +115,21 @@ source /usr/local/share/zsh-autosuggestions/zsh-autosuggestions.zsh
 # brew install zsh-syntax-highlighting
 source /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
-# inspired by https://github.com/fatih/dotfiles/blob/master/zshrc
+# z.sh
+. ~/dotfiles/z.sh
+
+# >>> conda initialize >>>
+# !! Contents within this block are managed by 'conda init' !!
+__conda_setup="$('/anaconda3/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
+if [ $? -eq 0 ]; then
+    eval "$__conda_setup"
+else
+    if [ -f "/anaconda3/etc/profile.d/conda.sh" ]; then
+        . "/anaconda3/etc/profile.d/conda.sh"
+    else
+        export PATH="/anaconda3/bin:$PATH"
+    fi
+fi
+unset __conda_setup
+# <<< conda initialize <<<
+

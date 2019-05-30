@@ -35,7 +35,7 @@ windows:
       # 'before' represents legacy functionality and will be deprecated in a future release, in favour of 'after'
       # synchronize: after
       panes:
-        - vi
+        - nvim
   - server: foreman start -f Procfile.dev
   - logs: tail -f log/development.log | grep -v 'Delayed::Backend::ActiveRecord::Job'
   - console: rails c

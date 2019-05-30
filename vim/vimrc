@@ -72,12 +72,17 @@ Plugin 'altercation/vim-colors-solarized'
 Plugin 'easymotion/vim-easymotion'
 Plugin 'rhysd/devdocs.vim'
 Plugin 'rstacruz/sparkup'
-Plugin 'farseer90718/vim-taskwarrior'
 Plugin 'tbabej/taskwiki'
 Plugin 'vimwiki/vimwiki'
 Plugin 'mhinz/vim-startify'
 Plugin 'junegunn/fzf.vim'
 Plugin 'sheerun/vim-polyglot'
+Plugin 'slashmili/alchemist.vim'
+Plugin 'wincent/terminus'
+Plugin 'jgdavey/tslime.vim'
+" Plugin 'alok/notational-fzf-vim'
+" Plugin 'https://github.com/neoclide/coc.nvim'
+" Plugin 'Shougo/deoplete.nvim'
 call vundle#end()
 filetype plugin indent on
 " }}}
@@ -218,3 +223,27 @@ autocmd FileType * setlocal formatoptions-=r formatoptions-=o
 
 " from Jamie
 inoremap <tab> <c-n><c-p>
+
+" Autocomplete
+let g:deoplete#enable_at_startup = 1
+
+set updatetime=100
+let g:gitgutter_terminal_reports_focus=0
+
+
+" Undo history
+if !isdirectory($HOME . "/.vim/undodir")
+  call mkdir($HOME . "/.vim/undodir", "p")
+endif
+set undofile
+set undodir=~/.vim/undodir
+
+" TSlime Config
+let g:tslime_always_current_session = 1
+let g:tslime_always_current_window = 1
+
+vmap <C-c><C-c> <Plug>SendSelectionToTmux
+nmap <C-c><C-c> <Plug>NormalModeSendToTmux
+nmap <C-c>r <Plug>SetTmuxVars
+
+imap <c-c> <esc>

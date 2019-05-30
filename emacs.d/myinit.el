@@ -15,15 +15,9 @@
 (evil-mode 1)
 (setq evil-want-C-i-jump nil)
 
-(use-package evil-rails
-:ensure t
-:config 
-)
-
 (use-package zenburn-theme
   :ensure t
   :config (load-theme 'zenburn t))
-(require 'poet-theme)
 
 (use-package auto-complete
   :ensure t
@@ -55,7 +49,8 @@
        'org-agenda-switch-to)
 
 (setq org-agenda-files (list "~/Dropbox/orgfiles/gcal.org"
-                             "~/Dropbox/orgfiles/todo.org"))
+                             "~/Dropbox/orgfiles/todo.org"
+			     "~/Dropbox/orgfiles/birthdays.org"))
 ; Set key combos
 (define-key global-map "\C-ca" 'org-agenda)
 
@@ -69,9 +64,9 @@
 	 ("y" "Youtube" entry (file+headline "~/Dropbox/orgfiles/youtube.org" "Youtube")
 	  "* Note %?\n%T")
 	("t" "To Do Item" entry (file+headline "~/Dropbox/orgfiles/todo.org" "To Do Items")
-	"* TODO %?\n%T")
+	  "* TODO %?\n%T")
 	("w" "Work To Do Item" entry (file+headline "~/Dropbox/orgfiles/todo.org" "Work To Do Items")
-	"* TODO %?\n%T")))
+	  "* TODO %?\n%T")))
 
 (setq bookmark-default-file "~/Dropbox/orgfiles/bookmarks.bmk" bookmark-save-flag 1)
 
@@ -83,12 +78,20 @@
  (delete-other-windows)
  (org-capture))
 
-(defun channing/archive-when-done ()
-  "Archive current entry if it is marked as DONE (see `org-done-keywords')."
-  (when (org-entry-is-done-p)
-    (org-archive-subtree-default)))
-
 (setq org-log-done 'time)
+
+; http://doc.norang.ca/org-mode.html
+(defun bh/org-auto-exclude-function (tag)
+  "Automatic task exclusion in the agenda with / RET"
+  (and (cond
+        ((string= tag "hold")
+         t)
+        ((string= tag "farm")
+         t))
+       (concat "-" tag)))
+
+(setq org-agenda-auto-exclude-function 'bh/org-auto-exclude-function)
+(setq org-agenda-span 'day)
 
 (use-package ace-window
   :ensure t
@@ -152,6 +155,11 @@
 (require 'chruby)
 (chruby "2.5.3")
 (require 'rinari)
+
+(use-package evil-rails
+:ensure t
+:config 
+)
 
 (use-package elpy
 :ensure t
@@ -309,6 +317,7 @@
 (require 'olivetti)
 (require 'writeroom-mode)
 (global-set-key (kbd "<f12>") 'tomatinho)
+(require 'hyperbole)
 ; (require 'org-ref)
 
 (require 'org-trello)

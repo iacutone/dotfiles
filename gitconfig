@@ -1,6 +1,6 @@
 [user]
-  name = Eric Iacutone
-  email = eric.iacutone@gmail.com
+	name = Eric Iacutone
+	email = eric.iacutone@gmail.com
 [core]
   excludesfile = /Users/iacutone/.gitignore
   editor = vim
