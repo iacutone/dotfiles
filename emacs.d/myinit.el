@@ -1,8 +1,3 @@
-(setq inhibit-startup-message t)
-(tool-bar-mode -1)
-(menu-bar-mode -1)
-(fset 'yes-or-no-p 'y-or-n-p)
-
 (use-package try
     :ensure t)
 
@@ -49,7 +44,8 @@
        'org-agenda-switch-to)
 
 (setq org-agenda-files (list "~/Dropbox/orgfiles/gcal.org"
-                             "~/Dropbox/orgfiles/todo.org"
+			     "~/Dropbox/orgfiles/work.org"
+			     "~/Dropbox/orgfiles/life.org"
 			     "~/Dropbox/orgfiles/birthdays.org"))
 ; Set key combos
 (define-key global-map "\C-ca" 'org-agenda)
@@ -61,12 +57,23 @@
 	 "* Blog %?\n%T")
 	("l" "Link" entry (file+headline "~/Dropbox/orgfiles/links.org" "Links")
 	 "* %? %^L %^g \n%T" :prepend t)
-	 ("y" "Youtube" entry (file+headline "~/Dropbox/orgfiles/youtube.org" "Youtube")
+	 ("y" "Youtube" entry (file+headline "~/Dropbox/orgfiles/notes.org" "Youtube")
 	  "* Note %?\n%T")
-	("t" "To Do Item" entry (file+headline "~/Dropbox/orgfiles/todo.org" "To Do Items")
-	  "* TODO %?\n%T")
-	("w" "Work To Do Item" entry (file+headline "~/Dropbox/orgfiles/todo.org" "Work To Do Items")
-	  "* TODO %?\n%T")))
+	("t" "Life To Do" entry (file+headline "~/Dropbox/orgfiles/life.org" "To Do Items")
+	  (file "~/dotfiles/emacs.d/template-todo.txt"))
+	("w" "Work To Do" entry (file+headline "~/Dropbox/orgfiles/work.org" "To Do Items")
+	  (file "~/dotfiles/emacs.d/template-todo.txt"))
+	("j" "Journal" entry (file+datetree "~/Dropbox/orgfiles/journal.org") 
+	"** %^{Title}")
+	("g" "Goals") 
+	 ("ge" "Epic goals" entry (file+headline "~/Dropbox/orgfiles/goals.org" "Epic Goals") 
+	   (file "~/dotfiles/emacs.d/template-goal.txt") :empty-lines-after 1)
+	 ("gl" "Long term goal (2-5 years from now)" entry (file+headline "~/Dropbox/orgfiles/goals.org" "Long term goals") 
+	   (file "~/dotfiles/emacs.d/template-goal.txt") :empty-lines-after 1) 
+	 ("gm" "Medium term goal (6 months up to 2 years)" entry (file+headline "~/Dropbox/orgfiles/goals.org" "Medium term goals") 
+	   (file "~/dotfiles/emacs.d/template-goal.txt") :empty-lines-after 1) 
+	 ("gs" "Short term goals (next 6 months)" entry (file+headline "~/Dropbox/orgfiles/goals.org" "Short term goals") 
+	   (file "~/dotfiles.emacs.d/template-goal.txt") :empty-lines-after 1)))
 
 (setq bookmark-default-file "~/Dropbox/orgfiles/bookmarks.bmk" bookmark-save-flag 1)
 
@@ -318,6 +325,7 @@
 (require 'writeroom-mode)
 (global-set-key (kbd "<f12>") 'tomatinho)
 (require 'hyperbole)
+(require 'synosaurus)
 ; (require 'org-ref)
 
 (require 'org-trello)
@@ -328,3 +336,37 @@
 (require 'shackle)
 
 (require 'better-defaults)
+
+; (require 'org-ledger)
+
+; (require 'org-brain)
+
+(require 'helm-org-rifle)
+
+(require 'deft)
+(use-package deft
+  :commands (deft)
+  :config (setq deft-directory "~/Dropbox/deft"))
+
+(defun insert-current-date () (interactive)
+  (insert (shell-command-to-string "echo -n $(date '+%Y-%m-%d %A')")))
+
+(global-set-key (kbd "C-c d") 'insert-current-date)
+
+(defun copy-id-to-clipboard () 
+  (interactive)
+    (when (eq major-mode 'org-mode) ; do this only in org-mode buffers
+    (setq mytmpid (funcall 'org-id-get-create))
+    (kill-new mytmpid)
+    (message "Copied %s to killring (clipboard)" mytmpid)
+  ))
+ 
+(global-set-key (kbd "C-c id") 'copy-id-to-clipboard)
+	
+;# (defun org-add-ids-to-headlines-in-file ()
+;#   (interactive)
+;#   (org-map-entries 'org-id-get-create))
+; 
+;# (add-hook 'org-mode-hook
+;#   (lambda ()
+;#     (add-hook 'before-save-hook 'my/org-add-ids-to-headlines-in-file nil 'local)))

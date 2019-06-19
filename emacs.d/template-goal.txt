@@ -1,0 +1,12 @@
+* GOAL %^{Describe your goal}
+ Recorded on %U - Last reviewed on %U
+ :SMART:
+ :Specific: %^{What is the purpose of this goal}
+ :Measureable: %^{How can you measure it}
+ :Activity: %^{What activity do we need to do} 
+ :Resources: %^{What resources do we need}
+ :Timebox: %^{What time do we need to spend on that}
+ :END:
+ :Actions:
+ Links to actions that support this goal:
+ :END:
