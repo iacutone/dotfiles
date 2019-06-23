@@ -31,6 +31,8 @@
 	  (file "~/dotfiles/emacs.d/template-todo.txt"))
 	("w" "Work To Do" entry (file+headline "~/Dropbox/orgfiles/work.org" "To Do Items")
 	  (file "~/dotfiles/emacs.d/template-todo.txt"))
+	("m" "Movie" entry (file+headline "~/Dropbox/orgfiles/life.org" "Movies")
+	  (file "~/dotfiles/emacs.d/template-movie.txt"))
 	("j" "Journal" entry (file+datetree "~/Dropbox/orgfiles/journal.org") 
 	"** %^{Title}")
 	("g" "Goals") 

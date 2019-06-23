@@ -1,0 +1,8 @@
+* TODO %^{Title} (%^{Year})
+  :PROPERTIES:
+  :IMDB: %^{imdb}
+  :RT: %^{rt}
+  :END:
+  :LOGBOOK:
+  - Added: %U
+  :END:
