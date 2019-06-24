@@ -1,0 +1,4 @@
+* %? %^L %^g
+:LOGBOOK:
+- Added: %U
+:END:
