@@ -1,0 +1,4 @@
+* TODO %^{Artist} %^{Album} (%^{Year})
+  :LOGBOOK:
+  - Added: %U
+  :END:
