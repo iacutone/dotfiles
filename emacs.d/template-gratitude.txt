@@ -1,0 +1,8 @@
+:SMART:
+:One: %^{First item}
+:Two: %^{Second item}
+:Three: %^{Third item} 
+:END:
+:LOGBOOK:
+- Added: %U
+:END:
