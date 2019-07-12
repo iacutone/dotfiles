@@ -18,11 +18,13 @@
 
 (setq org-capture-templates
       '(("w" "Work To Do" entry (file+headline "~/Dropbox/orgfiles/work.org" "To Do Items")
-	(file "~/dotfiles/emacs.d/template-todo.txt"))
+	  (file "~/dotfiles/emacs.d/template-todo.txt"))
+        ("r" "Weekly Review" entry (file+datetree "~/Dropbox/orgfiles/review.org")
+	  (file "~/dotfiles/emacs.d/template-review.txt"))
         ("l" "Life") 
           ("ln" "Note" entry (file+headline "~/Dropbox/orgfiles/notes.org" "Notes")
 	     "* Note %?\n%T")
-	  ("li" "Blog Idea" entry (file+headline "~/Dropbox/orgfiles/blog.org" "Blog Idea")
+	  ("lb" "Blog Idea" entry (file+headline "~/Dropbox/orgfiles/blog.org" "Blog Idea")
 	     "* Blog %?\n%T")
 	  ("ll" "Link" entry (file+headline "~/Dropbox/orgfiles/links.org" "Captured")
 	    (file "~/dotfiles/emacs.d/template-link.txt"))
@@ -34,6 +36,8 @@
 	    (file "~/dotfiles/emacs.d/template-movie.txt"))
 	  ("lu" "Music" entry (file+headline "~/Dropbox/orgfiles/life.org" "Music")
 	    (file "~/dotfiles/emacs.d/template-music.txt"))
+	  ("lg" "Gratitude" entry (file+datetree "~/Dropbox/orgfiles/gratitude.org")
+	    (file "~/dotfiles/emacs.d/template-gratitude.txt"))
 	  ("lj" "Journal" entry (file+datetree "~/Dropbox/orgfiles/journal.org") 
 	    "** %^{Title}")
 	("g" "Goals") 
@@ -44,7 +48,7 @@
 	  ("gm" "Medium term goal (6 months up to 2 years)" entry (file+headline "~/Dropbox/orgfiles/goals.org" "Medium term goals") 
 	    (file "~/dotfiles/emacs.d/template-goal.txt") :empty-lines-after 1) 
 	  ("gs" "Short term goals (next 6 months)" entry (file+headline "~/Dropbox/orgfiles/goals.org" "Short term goals") 
-	    (file "~/dotfiles.emacs.d/template-goal.txt") :empty-lines-after 1)))
+	    (file "~/dotfiles/emacs.d/template-goal.txt") :empty-lines-after 1)))
 
 (setq bookmark-default-file "~/Dropbox/orgfiles/bookmarks.bmk" bookmark-save-flag 1)
 
