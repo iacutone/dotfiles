@@ -1,4 +1,4 @@
-* TODO %^{Title} (%^{Year})
+* SOMEDAY %^{Title} (%^{Year})
   :PROPERTIES:
   :IMDB: %^{imdb}
   :RT: %^{rt}
