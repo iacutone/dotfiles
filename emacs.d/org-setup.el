@@ -26,7 +26,7 @@
 	     "* Note %?\n%T")
 	  ("lb" "Blog Idea" entry (file+headline "~/Dropbox/orgfiles/blog.org" "Blog Idea")
 	     "* Blog %?\n%T")
-	  ("ll" "Link" entry (file+headline "~/Dropbox/orgfiles/links.org" "Captured")
+	  ("ll" "Link" item (file+headline "~/Dropbox/orgfiles/links.org" "Captured")
 	    (file "~/dotfiles/emacs.d/template-link.txt"))
 	  ("ly" "Youtube" entry (file+headline "~/Dropbox/orgfiles/notes.org" "Youtube")
 	    (file "~/dotfiles/emacs.d/template-youtube.txt"))

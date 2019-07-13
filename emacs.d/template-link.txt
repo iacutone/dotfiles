@@ -1,4 +1,7 @@
-* %? %^L %^g
-:LOGBOOK:
-- Added: %U
-:END:
+* %^L %^g
+  :NOTES:
+  %?
+  :END:
+  :LOGBOOK:
+  - Added: %U
+  :END:
