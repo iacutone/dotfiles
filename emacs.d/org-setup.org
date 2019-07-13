@@ -38,7 +38,7 @@
 	    (file "~/dotfiles/emacs.d/template-movie.txt"))
 	  ("lu" "Music" entry (file+headline "~/Dropbox/orgfiles/life.org" "Music")
 	    (file "~/dotfiles/emacs.d/template-music.txt"))
-	  ("lg" "Gratitude" entry (file+datetree "~/Dropbox/orgfiles/gratitude.org")
+	  ("lg" "Gratitude" item (file+datetree "~/Dropbox/orgfiles/gratitude.org")
 	    (file "~/dotfiles/emacs.d/template-gratitude.txt"))
 	  ("lj" "Journal" entry (file+datetree "~/Dropbox/orgfiles/journal.org") 
 	    "** %^{Title}")
