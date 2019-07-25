@@ -56,15 +56,14 @@
                (quote
                 ("~/Dropbox/orgfiles/work.org" "~/Dropbox/orgfiles/life.org")))
               (org-agenda-overriding-header "")))
+       (todo "CANCELED"
+             ((org-agenda-files
+               (quote
+                ("~/Dropbox/orgfiles/work.org")))))
        (agenda ""
-               ((org-agenda-overriding-header "Today")
-                (org-agenda-files
+               ((org-agenda-files
                  (quote
-                  ("~/Dropbox/orgfiles/gcal.org" "~/Dropbox/orgfiles/birthdays.org")))
-                (org-agenda-span 1)
-                (org-agenda-sorting-strategy
-                 (quote
-                  (time-up priority-down))))))
+                  ("~/Dropbox/orgfiles/birthdays.org"))))))
       nil nil))))
  '(org-babel-load-languages (quote ((emacs-lisp . t) (dot . t) (ruby . t) (shell . t))))
  '(org-clock-into-drawer "CLOCKING")
