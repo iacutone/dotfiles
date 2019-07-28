@@ -63,7 +63,7 @@
        (agenda ""
                ((org-agenda-files
                  (quote
-                  ("~/Dropbox/orgfiles/birthdays.org"))))))
+                  ("~/Dropbox/orgfiles/birthdays.org" "~/Dropbox/orgfiles/gcal.org"))))))
       nil nil))))
  '(org-babel-load-languages (quote ((emacs-lisp . t) (dot . t) (ruby . t) (shell . t))))
  '(org-clock-into-drawer "CLOCKING")
