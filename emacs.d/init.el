@@ -9,6 +9,7 @@
 
 (setq inhibit-startup-message t)
 (setq initial-scratch-message "")
+(setq org-agenda-include-diary t)
 
 ;; Bootstrap `use-package'
 (unless (package-installed-p 'use-package)
