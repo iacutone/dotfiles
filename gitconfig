@@ -1,6 +1,6 @@
 [user]
-	name = Eric Iacutone
-	email = eric.iacutone@gmail.com
+  name = Eric Iacutone
+  email = eric.iacutone@gmail.com
 [core]
   excludesfile = /Users/iacutone/.gitignore
   editor = vim
@@ -10,9 +10,11 @@
   l = "!. ~/.githelpers && pretty_git_log"
   poh = push origin head
 [filter "lfs"]
-	process = git-lfs filter-process
-	required = true
-	clean = git-lfs clean -- %f
-	smudge = git-lfs smudge -- %f
+  process = git-lfs filter-process
+  required = true
+  clean = git-lfs clean -- %f
+  smudge = git-lfs smudge -- %f
 [push]
-	default = simple
+  default = simple
+[rerere]
+  enabled = true
