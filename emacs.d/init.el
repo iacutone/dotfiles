@@ -34,29 +34,25 @@
       ((tags "Goal=\"\""
              ((org-agenda-overriding-header "Actions that don't contribute to a goal yet")
               (org-agenda-overriding-header "")))
-       (tags "Goal=\"Short\""
+       (tags "INTERVAL=\"short\""
              ((org-agenda-overriding-header "Short Term Goals")))
-       (tags "Goal=\"Medium\""
+       (tags "INTERVAL=\"medium\""
              ((org-agenda-overriding-header "Medium Term Goals")))
-       (tags "Goal=\"Long\""
-             ((org-agenda-overriding-header "Long Term Goals")
-              (org-agenda-files
-               (quote nil)))))
+       (tags "INTERVAL=\"long\""
+             ((org-agenda-overriding-header "Long Term Goals")))
+       (tags "INTERVAL=\"epic\""
+             ((org-agenda-overriding-header "Epic Goals"))))
       nil nil)
      ("d" "Today's Overview"
       ((tags-todo "URGENT"
                   ((org-agenda-files
                     (quote
                      ("~/Dropbox/orgfiles/work.org" "~/Dropbox/orgfiles/life.org")))))
-       (todo "DONE"
-             ((org-agenda-files
-               (quote
-                ("~/Dropbox/orgfiles/work.org" "~/Dropbox/orgfiles/life.org")))))
+       (tags "-Goal+TODO=\"DONE\"" nil)
        (todo "TODO"
              ((org-agenda-files
                (quote
-                ("~/Dropbox/orgfiles/work.org" "~/Dropbox/orgfiles/life.org")))
-              (org-agenda-overriding-header "")))
+                ("~/Dropbox/orgfiles/work.org" "~/Dropbox/orgfiles/life.org")))))
        (todo "CANCELED"
              ((org-agenda-files
                (quote
@@ -64,7 +60,7 @@
        (agenda ""
                ((org-agenda-files
                  (quote
-                  ("~/Dropbox/orgfiles/birthdays.org" "~/Dropbox/orgfiles/gcal.org"))))))
+                  ("~/Dropbox/orgfiles/birthdays.org" "~/Dropbox/orgfiles/gcal.org" "~/Dropbox/orgfiles/life.org" "~/Dropbox/orgfiles/work.org"))))))
       nil nil))))
  '(org-babel-load-languages (quote ((emacs-lisp . t) (dot . t) (ruby . t) (shell . t))))
  '(org-clock-into-drawer "CLOCKING")
