@@ -1,8 +1,10 @@
-:SMART:
-:One: %^{First item}
-:Two: %^{Second item}
-:Three: %^{Third item} 
-:END:
-:LOGBOOK:
-- Added: %U
-:END:
+* ENTRY
+
+  3 things I am grateful for:
+  One: %^{1. I am grateful for}
+  Two: %^{2. I am grateful for}
+  Three: %^{3. I am grateful for} 
+
+  :LOGBOOK:
+  - Added: %U
+  :END:

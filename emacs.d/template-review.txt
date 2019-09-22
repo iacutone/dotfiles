@@ -5,7 +5,7 @@
     - Gather all accumulated business cards, receipts, and miscellaneous
       paper-based materials into your in-tray.
     - [ ] Empty backpack 
-    - [ ] Get lose paper from desk and put it to inbox
+    - [ ] Get loose paper from desk and put it to inbox
 *** Get "IN" to Zero [0/4]
     - Process completely all outstanding paper materials, journal and
       meeting notes, voicemails, dictation, and emails.
@@ -13,53 +13,22 @@
     - [ ] Email
     - [ ] Journal 
     - [ ] Voicemail, Others
-*** Empty your head [0/2]
+*** Empty your head [0/4]
    - Put in writing and process any un-captured new projects, action
      items, waiting for's, someday maybe's, etc.
-   - [ ] Set a timer for 5 minutes and write down what's in your mind
    - [ ] Write in gratitude journal
+   - [ ] Create short Journal entry of what was bad & good last week
+   - [ ] Add frequent Google Translate words to Anki
+   - [ ] Close open browser tabs
 ** Get Current
-*** Review Actions List [0/3]
-    - Mark off completed actions. Review for reminders of further
-      action steps to record.
-    - [ ] Set finished tasks to a "done" state 
-    - [ ] Set reminders if necessary
-    - [ ] Define follow up tasks
-*** Review Previous Calendar Data [0/2]
-    - Review past calendar in detail for remaining action items,
-  r eference data, etc., and transfer into the active system.
-    - [ ] Meeting minutes of meetings last week
-    - [ ] Other reference material
-*** Review Waiting For List [0/2]
-    - Record appropriate actions for any needed follow-up. Check off
-      received ones.
-    - [ ] Check waiting for actions
-    - [ ] Set followup tasks 
-*** Review Projects (and Larger Outcome) List [0/7]
+*** Review Projects (and Larger Outcome) List [0/6]
     - Evaluate status of projects, goals, and outcomes, one by one,
       ensuring at least one current action item on each. Browse through
       project plans, support material, and any other work-in-progress
       material to trigger new actions, completions, waiting for's, etc. 
-    - [ ] Review Project List, is something stuck?
-    - [ ] Check Short Term Goals list (match Goal="Short")
-    - [ ] Check Medium Term Goals list (match Goal="Medium")
-    - [ ] Check Long Term Goals list (match Goal="Long")
+    - [ ] Check Short Term Goals list (match INTERVAL="short")
+    - [ ] Check Medium Term Goals list (match INTERVAL="medium")
+    - [ ] Check Long Term Goals list (match INTERVAL="long")
     - [ ] Check for actions that contribute to a goal but have no Goal value
     - [ ] Review the [[file:goals.org][goals file]]
     - [ ] Schedule tasks with no date
-*** Review Any Relevant Checklists [0/2]
-    - Use as a trigger for any new actions.
-    - [ ] Check last weeks daily plan on how good the performance was
-    - [ ] Create short Journal entry of what was bad & good last week
-** Get Creative
-*** Review Someday/Maybe List [0/2]
-    - Review for any projects which may now have become active, and transfer
-      to "Projects". Delete items no longer of interest.
-    - [ ] Is a Someday/Maybe becoming a task/project?
-    - [ ] If a Someday is no longer of interest set it to "Cancelled".
-** Be Creative and Courageous [0/2]
-   - Any new, wonderful, hare-brained, creative, thought-provoking,
-     risk-taking ideas to add into your system?
-   - [ ] Set timer to 5 minutes and start dreaming
-   - [ ] Put the results into Actions/Someday/Maybe.
-
