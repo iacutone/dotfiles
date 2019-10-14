@@ -24,6 +24,8 @@
 	  (file "~/dotfiles/emacs.d/template-todo.txt"))
         ("r" "Weekly Review" entry (file+datetree "~/Dropbox/orgfiles/review.org")
 	  (file "~/dotfiles/emacs.d/template-review.txt"))
+        ("c" "Contact" entry (file+headline "~/Dropbox/orgfiles/contact.org" "Contacts") 
+	  (file "~/dotfiles/emacs.d/template-contact.txt"))
         ("l" "Life") 
           ("ln" "Note" entry (file+headline "~/Dropbox/orgfiles/notes.org" "Notes")
 	    (file "~/dotfiles/emacs.d/template-note.txt"))
