@@ -31,14 +31,14 @@
  '(org-agenda-custom-commands
    (quote
     (("g" "Weekly Goals Review"
-      ((tags "Goal=\"\""
+      ((tags "Goal+TODO=\"TODO\"+INTERVAL=\"\""
              ((org-agenda-overriding-header "Actions that don't contribute to a goal yet")
               (org-agenda-overriding-header "")))
-       (tags "INTERVAL=\"short\""
+       (tags "INTERVAL=\"short\"+TODO=\"TODO\""
              ((org-agenda-overriding-header "Short Term Goals")))
-       (tags "INTERVAL=\"medium\""
+       (tags "INTERVAL=\"medium\"+TODO=\"TODO\""
              ((org-agenda-overriding-header "Medium Term Goals")))
-       (tags "INTERVAL=\"long\""
+       (tags "INTERVAL=\"long\"+TODO=\"TODO\""
              ((org-agenda-overriding-header "Long Term Goals")))
        (tags "INTERVAL=\"epic\""
              ((org-agenda-overriding-header "Epic Goals"))))
@@ -49,10 +49,7 @@
                     (quote
                      ("~/Dropbox/orgfiles/work.org" "~/Dropbox/orgfiles/life.org")))))
        (tags "-Goal+TODO=\"DONE\"" nil)
-       (todo "TODO"
-             ((org-agenda-files
-               (quote
-                ("~/Dropbox/orgfiles/work.org" "~/Dropbox/orgfiles/life.org")))))
+       (tags "-Goal-SHAWN+TODO=\"TODO\"" nil)
        (todo "CANCELED"
              ((org-agenda-files
                (quote
@@ -61,7 +58,8 @@
                ((org-agenda-files
                  (quote
                   ("~/Dropbox/orgfiles/birthdays.org" "~/Dropbox/orgfiles/gcal.org" "~/Dropbox/orgfiles/life.org" "~/Dropbox/orgfiles/work.org"))))))
-      nil nil))))
+      nil nil)
+     ("s" "Talking Points with Shawn" tags "SHAWN" nil))))
  '(org-babel-load-languages (quote ((emacs-lisp . t) (dot . t) (ruby . t) (shell . t))))
  '(org-clock-into-drawer "CLOCKING")
  '(org-enforce-todo-checkbox-dependencies t)
