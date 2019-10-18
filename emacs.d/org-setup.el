@@ -45,6 +45,8 @@
 	    (file "~/dotfiles/emacs.d/template-music.txt"))
 	  ("lg" "Gratitude" entry (file+datetree "~/Dropbox/orgfiles/gratitude.org")
 	    (file "~/dotfiles/emacs.d/template-gratitude.txt"))
+	  ("lr" "Recipe" entry (file+headline "~/Dropbox/orgfiles/recipes.org" "Recipes")
+	    (file "~/dotfiles/emacs.d/template-recipe.txt"))
 	  ("lj" "Journal" entry (file+datetree "~/Dropbox/orgfiles/journal.org") 
 	    "** %^{Title}")
 	  ("lw" "Good Bad" entry (file+datetree "~/Dropbox/orgfiles/journal.org") 

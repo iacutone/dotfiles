@@ -1,0 +1,5 @@
+* RECIPE %^{recipe name}
+  %?
+  :LOGBOOK:
+  - Added: %U
+  :END:
