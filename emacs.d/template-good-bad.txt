@@ -1,5 +1,9 @@
 * Good/Bad %U
 
 __Good__
+What energized you?
+What engaged you?
 
 __Bad__
+What bored you?
+What disengaged you?
