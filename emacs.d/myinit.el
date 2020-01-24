@@ -8,11 +8,25 @@
 
 (require 'evil)
 (evil-mode 1)
-(setq evil-want-C-i-jump nil)
 
-(use-package zenburn-theme
-  :ensure t
-  :config (load-theme 'zenburn t))
+(define-key evil-ex-map "b " 'helm-mini)
+(define-key evil-ex-map "e" 'helm-find-files)
+(define-key evil-ex-map "g" 'helm-projectile-grep)
+(define-key evil-ex-map "f" 'helm-projectile-find-file)
+
+(define-key evil-ex-map "m" 'magit-blame)
+
+(require 'doom-themes)
+
+(setq doom-themes-enable-bold t    ; if nil, bold is universally disabled
+      doom-themes-enable-italic t) ; if nil, italics is universally disabled
+
+(load-theme 'doom-molokai t)
+(doom-themes-visual-bell-config)
+(doom-themes-neotree-config)  ; all-the-icons fonts must be installed!
+
+(require 'doom-modeline)
+(doom-modeline-mode 1)
 
 (use-package auto-complete
   :ensure t
@@ -43,20 +57,19 @@
     ))
 (global-set-key (kbd "M-p") 'ace-window)
 
-(use-package helm-projectile
-:ensure t
-:config)
+(require 'helm)
+
+(setq-default helm-M-x-fuzzy-match t)
+(global-set-key "\C-x\C-m" 'helm-M-x)
+(global-set-key "\C-c\C-m" 'helm-M-x)
+(define-key evil-ex-map "x" 'helm-M-x)
+
+(define-key evil-ex-map "b " 'helm-mini)
+(define-key evil-ex-map "e" 'helm-find-files)
 
 (require 'helm-projectile)
-(helm-projectile-on)
-
-(use-package helm-dash
-:ensure t
-:config)
-
-(use-package helm-ag
-:ensure t
-:config)
+(define-key evil-ex-map "g" 'helm-projectile-grep)
+(define-key evil-ex-map "f" 'helm-projectile-find-file)
 
 (require 'helm-config)
 (helm-mode 1)
@@ -159,9 +172,6 @@
   :config
   (require 'calfw) 
   (require 'calfw-org))
-
-(require 'powerline)
-(powerline-default-theme)
 
 (use-package dumb-jump
   :bind (("M-g o" . dumb-jump-go-other-window)
