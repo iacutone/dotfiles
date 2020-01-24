@@ -1,4 +1,4 @@
-* SOMEDAY %^{Title} (%^{Year})
+* CONSUME %^{Title} (%^{Year})
   :PROPERTIES:
   :IMDB: %^{imdb}
   :RT: %^{rt}
