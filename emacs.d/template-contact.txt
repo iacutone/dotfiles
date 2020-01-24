@@ -5,4 +5,5 @@
   :CITY: %^{City}
   :STATE: %^{State}
   :ZIP: %^{Zip}
+  :Map: [[https://maps.google.com/maps?q=%\2+%\3+%\4+%\5][Google Maps]]
   :END:
