@@ -49,7 +49,7 @@
                     (quote
                      ("~/Dropbox/orgfiles/work.org" "~/Dropbox/orgfiles/life.org")))))
        (tags "-Goal+TODO=\"DONE\"" nil)
-       (tags "-Goal-SHAWN+TODO=\"TODO\"" nil)
+       (tags "-Goal-SHAWN+TODO=\"TODO\"-DEADLINE>=\"<+7d>\"" nil)
        (todo "CANCELED"
              ((org-agenda-files
                (quote
