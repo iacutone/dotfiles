@@ -34,13 +34,13 @@
       ((tags "Goal+TODO=\"TODO\"+INTERVAL=\"\""
              ((org-agenda-overriding-header "Actions that don't contribute to a goal yet")
               (org-agenda-overriding-header "")))
-       (tags "INTERVAL=\"short\"+TODO=\"TODO\""
+       (tags "Goal+TODO=\"GOAL\"+INTERVAL=\"short\"|TODO=\"TODO\"+INTERVAL=\"short\""
              ((org-agenda-overriding-header "Short Term Goals")))
-       (tags "INTERVAL=\"medium\"+TODO=\"TODO\""
+       (tags "Goal+TODO=\"GOAL\"+INTERVAL=\"medium\"|TODO=\"TODO\"+INTERVAL=\"medium\""
              ((org-agenda-overriding-header "Medium Term Goals")))
-       (tags "INTERVAL=\"long\"+TODO=\"TODO\""
+       (tags "Goal+TODO=\"GOAL\"+INTERVAL=\"long\"|TODO=\"TODO\"+INTERVAL=\"long\""
              ((org-agenda-overriding-header "Long Term Goals")))
-       (tags "INTERVAL=\"epic\""
+       (tags "Goal+TODO=\"GOAL\"+INTERVAL=\"epic\"|TODO=\"TODO\"+INTERVAL=\"epic\""
              ((org-agenda-overriding-header "Epic Goals"))))
       nil nil)
      ("d" "Today's Overview"
@@ -83,7 +83,7 @@
  '(org-trello-current-prefix-keybinding "C-c o" nil (org-trello))
  '(package-selected-packages
    (quote
-    (rtags doom-modeline doom doom-themes anki-editor bbdb synosaurus deft helm-org-rifle evil-ledger hyperbole rinari poet-theme chruby ruby-electric solarized-theme better-defaults shackle tomatinho pdf-tools org-trello org-ref writeroom-mode olivetti org-pomodoro wc-mode grab-mac-link ## google-this helm-google gnugo xpm buffer-stack notmuch org-projectile rvm dumb-jump robe rspec-mode eyebrowse helm-dash helm-ag helm-projectile evil-rails calfw-ical calfw-org calfw powerline org-gcal web-mode expand-region beacon elpy zenburn-theme which-key use-package try swiper org-bullets helm evil auto-complete ace-window))))
+    (cmake-ide rtags doom-modeline doom doom-themes anki-editor bbdb synosaurus deft helm-org-rifle evil-ledger hyperbole rinari poet-theme chruby ruby-electric solarized-theme better-defaults shackle tomatinho pdf-tools org-trello org-ref writeroom-mode olivetti org-pomodoro wc-mode grab-mac-link ## google-this helm-google gnugo xpm buffer-stack notmuch org-projectile rvm dumb-jump robe rspec-mode eyebrowse helm-dash helm-ag helm-projectile evil-rails calfw-ical calfw-org calfw powerline org-gcal web-mode expand-region beacon elpy zenburn-theme which-key use-package try swiper org-bullets helm evil auto-complete ace-window))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
