@@ -1,0 +1,13 @@
+* DECISION %^{Title}
+
+1. The choice you’ve made
+
+2. What you expect to happen as a result of that choice
+
+3. Why you expect things to pan out that way
+
+4. How you feel about your decision
+
+:LOGBOOK:
+- Added: %U
+:END:

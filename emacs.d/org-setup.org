@@ -15,7 +15,8 @@
 			     "~/Dropbox/orgfiles/work.org"
 			     "~/Dropbox/orgfiles/life.org"
 			     "~/Dropbox/orgfiles/goals.org"
-			     "~/Dropbox/orgfiles/birthdays.org"))
+			     "~/Dropbox/orgfiles/birthdays.org"
+			     "~/Dropbox/orgfiles/entertainment.org"))
 ; Set key combos
 (define-key global-map "\C-ca" 'org-agenda)
 
@@ -53,6 +54,8 @@
 	    "** %^{Title}")
 	  ("lw" "Good Bad" entry (file+datetree "~/Dropbox/orgfiles/journal.org") 
 	    (file "~/dotfiles/emacs.d/template-good-bad.txt"))
+	  ("ld" "Decision" entry (file+headline "~/Dropbox/orgfiles/decision.org" "Decisions") 
+	    (file "~/dotfiles/emacs.d/template-decision-journal.txt"))
 	("g" "Goals") 
 	  ("ge" "Epic goals" entry (file+headline "~/Dropbox/orgfiles/goals.org" "Epic Goals") 
 	    (file "~/dotfiles/emacs.d/template-goal.txt") :empty-lines-after 1)
