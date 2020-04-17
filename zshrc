@@ -9,19 +9,6 @@ alias mux="tmuxinator $1"
 alias subl="sublime"
 alias vi='nvim'
 
-
-# =============
-#    EXPORT
-# =============
-
-export ZSH=/Users/iacutone/.oh-my-zsh
-export EDITOR='vim'
-export PATH="$HOME/bin:$PATH"
-export GOPATH=$HOME/go
-export ES_HOME=/usr/local/bin/elasticsearch
-export RUBYMOTION_ANDROID_SDK=/Users/iacutone/.rubymotion-android/sdk
-export RUBYMOTION_ANDROID_NDK=/Users/iacutone/.rubymotion-android/ndk
-
 ZSH_THEME="theunraveler"
 plugins=(git bundler osx rake ruby rails history-substring-search)
 
@@ -30,6 +17,7 @@ plugins=(git bundler osx rake ruby rails history-substring-search)
 #    SOURCE
 # =============
 
+source "$HOME/dotfiles/variables.sh"
 source $ZSH/oh-my-zsh.sh
 source ~/.bash_profile
 source /usr/local/share/chruby/chruby.sh
@@ -92,18 +80,6 @@ if [ -e /usr/local/opt/fzf/shell/completion.zsh ]; then
   source /usr/local/opt/fzf/shell/key-bindings.zsh
   source /usr/local/opt/fzf/shell/completion.zsh
 fi
-
-# fzf + ag configuration
-if _has fzf && _has ag; then
-  export FZF_DEFAULT_COMMAND='ag --nocolor -g ""'
-  export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
-  export FZF_ALT_C_COMMAND="$FZF_DEFAULT_COMMAND"
-  export FZF_DEFAULT_OPTS='
-  --color fg:242,bg:236,hl:65,fg+:15,bg+:239,hl+:108
-  --color info:108,prompt:109,spinner:108,pointer:168,marker:168
-  '
-fi
-
 
 # ===================
 #    PLUGINS
