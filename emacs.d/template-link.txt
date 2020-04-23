@@ -1,7 +1,0 @@
-** [[%^{link}][%^{link description}]]
-  :PROPERTIES:
-  %?
-  :END:
-  :LOGBOOK:
-  - Added: %U
-  :END:

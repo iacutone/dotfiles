@@ -49,7 +49,8 @@
                     (quote
                      ("~/Dropbox/orgfiles/work.org" "~/Dropbox/orgfiles/life.org")))))
        (tags "-Goal+TODO=\"DONE\"" nil)
-       (tags "-Goal-SHAWN+TODO=\"TODO\"-DEADLINE>=\"<+7d>\"" nil)
+       (tags "-Goal+TODO=\"TODO\"-DEADLINE>=\"<+7d>\"" nil)
+       (tags "TODO=\"TODO\"+INTERVAL=\"short\"" nil)
        (todo "CANCELED"
              ((org-agenda-files
                (quote
@@ -57,9 +58,8 @@
        (agenda ""
                ((org-agenda-files
                  (quote
-                  ("~/Dropbox/orgfiles/birthdays.org" "~/Dropbox/orgfiles/gcal.org" "~/Dropbox/orgfiles/life.org" "~/Dropbox/orgfiles/work.org"))))))
-      nil nil)
-     ("s" "Talking Points with Shawn" tags "SHAWN" nil))))
+                  ("~/Dropbox/orgfiles/birthdays.org" "~/Dropbox/orgfiles/life.org" "~/Dropbox/orgfiles/work.org"))))))
+      nil nil))))
  '(org-babel-load-languages (quote ((emacs-lisp . t) (dot . t) (ruby . t) (shell . t))))
  '(org-clock-into-drawer "CLOCKING")
  '(org-enforce-todo-checkbox-dependencies t)
