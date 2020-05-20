@@ -32,8 +32,6 @@
 	     "* Blog %?\n%T")
 	  ("lf" "Food" entry (file+headline "~/Dropbox/orgfiles/life.org" "Food")
 	    (file "~/dotfiles/emacs.d/template-todo.txt"))
-	  ("ll" "Link" entry (file+headline "~/Dropbox/orgfiles/links.org" "Captured")
-	    (file "~/dotfiles/emacs.d/template-link.txt"))
 	  ("ly" "Youtube" entry (file+headline "~/Dropbox/orgfiles/notes.org" "Youtube")
 	    (file "~/dotfiles/emacs.d/template-youtube.txt"))
 	  ("lt" "Life To Do" entry (file+headline "~/Dropbox/orgfiles/life.org" "To Do Items")
