@@ -13,13 +13,14 @@
     - [ ] Email
     - [ ] Journal 
     - [ ] Voicemail, Others
-*** Empty your head [0/4]
+*** Empty your head [0/5]
    - Put in writing and process any un-captured new projects, action
      items, waiting for's, someday maybe's, etc.
    - [ ] Write in gratitude journal
    - [ ] Create short Journal entry of what was bad & good last week
    - [ ] Add frequent Google Translate words to Anki
    - [ ] Close open browser tabs
+   - [ ] Migrate bookmarks
 ** Get Current
 *** Review Projects (and Larger Outcome) List [0/6]
     - Evaluate status of projects, goals, and outcomes, one by one,

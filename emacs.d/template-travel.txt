@@ -1,0 +1,12 @@
+* %^{Place}
+  :PROPERTIES:
+  :Notes: %^{What's cool about this place?}
+  :Season: %^{What season?}
+  :City: %^{City}
+  :Country: %^{Country}
+  :Map: [[https://maps.google.com/maps?q=%\4+%\5][Google Maps]]
+  :END:
+
+  :LOGBOOK:
+  - Added: %U
+  :END:

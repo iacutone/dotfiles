@@ -1,4 +1,4 @@
-* RECIPE %^{recipe name}
+* %^{Recipe Name}
   %?
   :LOGBOOK:
   - Added: %U

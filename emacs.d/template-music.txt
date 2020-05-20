@@ -1,4 +1,4 @@
-* SOMEDAY %^{Artist} %^{Album} (%^{Year})
+* CONSUME %^{Artist} %^{Album} (%^{Year})
   :LOGBOOK:
   - Added: %U
   :END:
