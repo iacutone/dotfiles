@@ -281,3 +281,84 @@
 (use-package deft
   :commands (deft)
   :config (setq deft-directory "~/Dropbox/deft"))
+
+(require 'org-journal)
+
+(require 'org-journal)
+
+(defun org-journal-save-entry-and-exit()
+  "Simple convenience function.
+  Saves the buffer of the current day's entry and kills the window
+  Similar to org-capture like behavior"
+  (interactive)
+  (save-buffer)
+  (kill-buffer-and-window))
+(define-key org-journal-mode-map (kbd "C-x C-s") 'org-journal-save-entry-and-exit)
+
+(use-package org-brain :ensure t
+  :init
+  (setq org-brain-path "~/Dropbox/orgfiles/brain")
+  ;; For Evil users
+  (with-eval-after-load 'evil
+    (evil-set-initial-state 'org-brain-visualize-mode 'emacs))
+  :config
+  (bind-key "C-c b" 'org-brain-prefix-map org-mode-map)
+  (setq org-id-track-globally t)
+  (setq org-id-locations-file "~/.emacs.d/.org-id-locations")
+  (add-hook 'before-save-hook #'org-brain-ensure-ids-in-buffer)
+  (push '("b" "Brain" plain (function org-brain-goto-end)
+          "* %i%?" :empty-lines 1)
+        org-capture-templates)
+  (setq org-brain-visualize-default-choices 'all)
+  (setq org-brain-title-max-length 12)
+  (setq org-brain-include-file-entries nil
+        org-brain-file-entries-use-title nil))
+
+(use-package org-roam
+      :hook
+      (after-init . org-roam-mode)
+      :custom
+      (org-roam-directory "~/Dropbox/orgfiles/roam")
+      :bind (:map org-roam-mode-map
+              (("C-c n l" . org-roam)
+               ("C-c n f" . org-roam-find-file)
+               ("C-c n g" . org-roam-show-graph))
+              :map org-mode-map
+              (("C-c n i" . org-roam-insert))))
+
+(require 'rtags)
+(require 'cmake-ide)
+(cmake-ide-setup)
+
+(add-hook 'c-mode-hook 'rtags-start-process-unless-running)
+(add-hook 'c++-mode-hook 'rtags-start-process-unless-running)
+
+(use-package rtags
+  :ensure t
+  :hook (c++-mode . rtags-start-process-unless-running)
+  :config (setq rtags-completions-enabled t
+		rtags-path "~/dotfiles/emacs.d/rtags/src/rtags.el"
+		rtags-rc-binary-name "~/dotfiles/emacs.d/rtags/bin/rc"
+		rtags-use-helm t
+		rtags-rdm-binary-name "~/dotfiles/emacs.d/rtags/bin/rdm")
+  :bind (("C-c E" . rtags-find-symbol)
+  	 ("C-c e" . rtags-find-symbol-at-point)
+  	 ("C-c O" . rtags-find-references)
+  	 ("C-c o" . rtags-find-references-at-point)
+  	 ("C-c s" . rtags-find-file)
+  	 ("C-c v" . rtags-find-virtuals-at-point)
+  	 ("C-c F" . rtags-fixit)
+  	 ("C-c f" . rtags-location-stack-forward)
+  	 ("C-c b" . rtags-location-stack-back)
+  	 ("C-c n" . rtags-next-match)
+  	 ("C-c p" . rtags-previous-match)
+  	 ("C-c P" . rtags-preprocess-file)
+  	 ("C-c R" . rtags-rename-symbol)
+  	 ("C-c x" . rtags-show-rtags-buffer)
+  	 ("C-c T" . rtags-print-symbol-info)
+  	 ("C-c t" . rtags-symbol-type)
+  	 ("C-c I" . rtags-include-file)
+  	 ("C-c S" . rtags-get-include-file-for-symbol)
+	 ))
+
+(setq rtags-display-result-backend 'helm)

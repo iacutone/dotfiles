@@ -7,3 +7,8 @@ What engaged you?
 __Bad__
 What bored you?
 What disengaged you?
+
+| Failure | Screwup | Weakness | Growth Opportunity | Insight |
+|---------+---------+----------+--------------------+---------|
+|         |         |          |                    |         |
+|---------+---------+----------+--------------------+---------|
