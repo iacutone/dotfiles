@@ -6,4 +6,5 @@
 .DS_Store
 config/application.yml
 tags
+dump.rdb
 *~
