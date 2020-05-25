@@ -18,3 +18,5 @@
   default = simple
 [rerere]
   enabled = true
+[web]
+  browser = open
