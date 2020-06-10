@@ -1,14 +1,26 @@
-name: Artfully
-root: ~/artfully
+name: Kamana
+root: ~/kamana
 
 # Optional tmux socket
 # socket_name: foo
 
-# Runs before everything. Use it to start daemons etc.
-# pre: sudo /etc/rc.d/mysqld start
+# Note that the pre and post options have been deprecated and will be replaced by
+# project hooks.
+
+# Project hooks
+# Runs on project start, always
+# on_project_start: command
+# Run on project start, the first time
+# on_project_first_start: command
+# Run on project start, after the first time
+# on_project_restart: command
+# Run on project exit ( detaching from tmux session )
+# on_project_exit: command
+# Run on project stop
+# on_project_stop: command
 
 # Runs in each window and pane before window/pane specific commands. Useful for setting up interpreter versions.
-# pre_window: rbenv shell 2.0.0-p247
+pre_window: source .env
 
 # Pass command line options to tmux. Useful for specifying a different tmux.conf.
 # tmux_options: -f ~/.tmux.mac.conf
@@ -19,14 +31,11 @@ root: ~/artfully
 # Specifies (by name or index) which window will be selected on project startup. If not set, the first window is used.
 # startup_window: editor
 
-# Specitifes (by index) which pane of the specified window will be selected on project startup. If not set, the first pane is used.
+# Specifies (by index) which pane of the specified window will be selected on project startup. If not set, the first pane is used.
 # startup_pane: 1
 
 # Controls whether the tmux session should be attached to automatically. Defaults to true.
 # attach: false
-
-# Runs after everything. Use it to attach to tmux with custom options etc.
-# post: tmux -CC attach -t FundingWorks
 
 windows:
   - editor:
@@ -36,7 +45,5 @@ windows:
       # synchronize: after
       panes:
         - nvim
-  - server: foreman start -f Procfile.dev
-  - logs: tail -f log/development.log | grep -v 'Delayed::Backend::ActiveRecord::Job'
-  - console: rails c
-
+  - server: iex -S mix phx.server
+  - ag:
