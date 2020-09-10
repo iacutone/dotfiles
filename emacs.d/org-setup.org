@@ -1,8 +1,7 @@
 * org mode
 
 #+BEGIN_SRC emacs-lisp
-(use-package org
-  :hook ((before-save . org-set-last-modified)))
+(use-package org)
 
 (use-package org-bullets
   :ensure t
@@ -117,23 +116,4 @@
 ;(add-hook 'org-mode-hook
 ;  (lambda ()
 ;    (add-hook 'before-save-hook 'org-add-ids-to-headlines-in-file nil 'local)))
-
-
-;;--------------------------
-;; Handling file properties for ‘CREATED’ & ‘LAST_MODIFIED’
-;;--------------------------
-
-(defun org-find-time-file-property (property &optional anywhere)
-  "Return the position of the time file PROPERTY if it exists.
-   When ANYWHERE is non-nil, search beyond the preamble."
-
-    (save-excursion
-      (goto-char (point-min))
-      (let ((first-heading
-             (save-excursion
-               (re-search-forward org-outline-regexp-bol nil t))))
-        (when (re-search-forward (format "^#\\+%s:" property)
-                                 (if anywhere nil first-heading)
-                                 t)
-          (point)))))
 #+END_SRC

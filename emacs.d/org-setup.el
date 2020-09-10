@@ -1,3 +1,5 @@
+(use-package org)
+
 (use-package org-bullets
   :ensure t
   :config
@@ -54,7 +56,7 @@
 	    (file "~/dotfiles/emacs.d/template-decision-journal.txt"))
 	  ("la" "Travel" entry (file+headline "~/Dropbox/orgfiles/travel.org" "Travel") 
 	    (file "~/dotfiles/emacs.d/template-travel.txt"))
-	  ("lo" "Book" entry (file+headline "~/Dropbox/orgfiles/travel.org" "Book") 
+	  ("lo" "Book" entry (file+headline "~/Dropbox/orgfiles/book.org" "Book") 
 	    (file "~/dotfiles/emacs.d/template-book.txt"))
 	("g" "Goals") 
 	  ("ge" "Epic goals" entry (file+headline "~/Dropbox/orgfiles/goals.org" "Epic Goals") 
@@ -65,8 +67,6 @@
 	    (file "~/dotfiles/emacs.d/template-goal.txt") :empty-lines-after 1) 
 	  ("gs" "Short term goals (next 6 months)" entry (file+headline "~/Dropbox/orgfiles/goals.org" "Short term goals") 
 	    (file "~/dotfiles/emacs.d/template-goal.txt") :empty-lines-after 1)))
-
-(setq bookmark-default-file "~/Dropbox/orgfiles/bookmarks.bmk" bookmark-save-flag 1)
 
 (defun make-capture-frame ()
  "Create a new frame and run org-capture."

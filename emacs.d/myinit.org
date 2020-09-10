@@ -17,7 +17,7 @@
 (require 'evil)
 (evil-mode 1)
 
-(define-key evil-ex-map "b" 'helm-mini)
+(define-key evil-ex-map "b " 'helm-mini)
 (define-key evil-ex-map "e" 'helm-find-files)
 (define-key evil-ex-map "g" 'helm-projectile-grep)
 (define-key evil-ex-map "f" 'helm-projectile-find-file)
@@ -383,36 +383,116 @@ https://blog.tohojo.dk/2015/10/integrating-hugo-into-emacs.html
       :bind
       ("C-c n j" . org-journal-new-entry)
       :custom
-      (org-journal-dir "~/Dropbox/orgfiles/roam")
       (org-journal-date-prefix "#+TITLE: ")
       (org-journal-file-format "%Y-%m-%d.org")
+      (org-journal-dir "~/Dropbox/orgfiles/roam")
       (org-journal-date-format "%A, %d %B %Y"))
-    (setq org-journal-enable-agenda-integration t)
-(require 'org-journal)
 #+END_SRC
 
 * company-org-roam
 #+BEGIN_SRC emacs-lisp
-(require 'company-org-roam)
-(push 'company-org-roam company-backends)
+; (require 'company-org-roam)
+; (push 'company-org-roam company-backends)
 #+END_SRC
 
 * org-roam
 #+BEGIN_SRC emacs-lisp
 (use-package org-roam
-      :hook
-      (after-init . org-roam-mode)
-      :custom
-      (org-roam-directory "~/Dropbox/orgfiles/roam")
-      :bind (:map org-roam-mode-map
-              (("C-c n l" . org-roam)
-               ("C-c n f" . org-roam-find-file)
-               ("C-c n g" . org-roam-show-graph))
-              :map org-mode-map
-              (("C-c n i" . org-roam-insert))))
+  :ensure t
+  :hook ((after-init . org-roam-mode))
+  :custom
+  (org-roam-directory "~/Dropbox/orgfiles/roam")
+  (org-roam-index-file "index.org")
+  :bind (:map org-roam-mode-map
+         (("C-c m l" . org-roam)
+          ("C-c m F" . org-roam-find-file)
+          ("C-c m r" . org-roam-find-ref)
+          ("C-c m ." . org-roam-find-directory)
+          ("C-c m >" . zp/org-roam-find-directory-testing)
+          ("C-c m d" . org-roam-dailies-map)
+          ("C-c m j" . org-roam-jump-to-index)
+          ("C-c m b" . org-roam-switch-to-buffer)
+          ("C-c m g" . org-roam-graph))
+         :map org-mode-map
+         (("C-c m i" . org-roam-insert)))
+  :config
+  (setq org-roam-capture-templates
+        '(("d" "default" plain
+           (function org-roam-capture--get-point)
+           "%?"
+           :file-name "%<%Y%m%d%H%M%S>-${slug}"
+           :head "#+TITLE: ${title}\n#+CREATED: %u\n#+LAST_MODIFIED: %U\n\n"
+           :unnarrowed t))))
+
+(add-hook 'before-save-hook #'zp/org-set-last-modified)
+
+;;--------------------------
+;; Handling file properties for ‘CREATED’ & ‘LAST_MODIFIED’
+;;--------------------------
+
+(defun zp/org-find-time-file-property (property &optional anywhere)
+  "Return the position of the time file PROPERTY if it exists.
+   When ANYWHERE is non-nil, search beyond the preamble."
+  (save-excursion
+    (goto-char (point-min))
+    (let ((first-heading
+           (save-excursion
+             (re-search-forward org-outline-regexp-bol nil t))))
+      (when (re-search-forward (format "^#\\+%s:" property)
+                               (if anywhere nil first-heading)
+                               t)
+        (point)))))
+
+(defun zp/org-has-time-file-property-p (property &optional anywhere)
+  "Return the position of time file PROPERTY if it is defined.
+   As a special case, return -1 if the time file PROPERTY exists but
+   is not defined."
+  (when-let ((pos (zp/org-find-time-file-property property anywhere)))
+    (save-excursion
+      (goto-char pos)
+      (if (and (looking-at-p " ")
+               (progn (forward-char)
+                      (org-at-timestamp-p 'lax)))
+          pos
+        -1))))
+
+(defun zp/org-set-time-file-property (property &optional anywhere pos)
+  "Set the time file PROPERTY in the preamble.
+   When ANYWHERE is non-nil, search beyond the preamble.
+   If the position of the file PROPERTY has already been computed,
+   it can be passed in POS."
+  (when-let ((pos (or pos
+                      (zp/org-find-time-file-property property))))
+    (save-excursion
+      (goto-char pos)
+      (if (looking-at-p " ")
+          (forward-char)
+        (insert " "))
+      (delete-region (point) (line-end-position))
+      (let* ((now (format-time-string "[%Y-%m-%d %a %H:%M]")))
+        (insert now)))))
+
+(defun zp/org-set-last-modified ()
+  "Update the LAST_MODIFIED file property in the preamble."
+  (when (derived-mode-p 'org-mode)
+    (zp/org-set-time-file-property "LAST_MODIFIED")))
+
+(setq org-roam-completion-system 'helm)
 
 (use-package org-roam-server
-  :ensure t)
+  :ensure t
+  :bind (:map org-roam-mode-map
+         (("C-c m G" . org-roam-server-mode)))
+  :config
+  (setq org-roam-server-host "127.0.0.1"
+        org-roam-server-port 9999
+        org-roam-server-export-inline-images t
+        org-roam-server-authenticate nil
+        org-roam-server-network-poll t
+        org-roam-server-network-arrows nil
+        org-roam-server-network-label-truncate t
+        org-roam-server-network-label-truncate-length 60
+        org-roam-server-network-label-wrap-length 20))
 #+END_SRC
 
 * rtags
