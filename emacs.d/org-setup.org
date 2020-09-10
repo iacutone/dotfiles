@@ -1,5 +1,9 @@
 * org mode
+
 #+BEGIN_SRC emacs-lisp
+(use-package org
+  :hook ((before-save . org-set-last-modified)))
+
 (use-package org-bullets
   :ensure t
   :config
@@ -56,7 +60,7 @@
 	    (file "~/dotfiles/emacs.d/template-decision-journal.txt"))
 	  ("la" "Travel" entry (file+headline "~/Dropbox/orgfiles/travel.org" "Travel") 
 	    (file "~/dotfiles/emacs.d/template-travel.txt"))
-	  ("lo" "Book" entry (file+headline "~/Dropbox/orgfiles/travel.org" "Book") 
+	  ("lo" "Book" entry (file+headline "~/Dropbox/orgfiles/book.org" "Book") 
 	    (file "~/dotfiles/emacs.d/template-book.txt"))
 	("g" "Goals") 
 	  ("ge" "Epic goals" entry (file+headline "~/Dropbox/orgfiles/goals.org" "Epic Goals") 
@@ -67,8 +71,6 @@
 	    (file "~/dotfiles/emacs.d/template-goal.txt") :empty-lines-after 1) 
 	  ("gs" "Short term goals (next 6 months)" entry (file+headline "~/Dropbox/orgfiles/goals.org" "Short term goals") 
 	    (file "~/dotfiles/emacs.d/template-goal.txt") :empty-lines-after 1)))
-
-(setq bookmark-default-file "~/Dropbox/orgfiles/bookmarks.bmk" bookmark-save-flag 1)
 
 (defun make-capture-frame ()
  "Create a new frame and run org-capture."
@@ -115,4 +117,23 @@
 ;(add-hook 'org-mode-hook
 ;  (lambda ()
 ;    (add-hook 'before-save-hook 'org-add-ids-to-headlines-in-file nil 'local)))
+
+
+;;--------------------------
+;; Handling file properties for ‘CREATED’ & ‘LAST_MODIFIED’
+;;--------------------------
+
+(defun org-find-time-file-property (property &optional anywhere)
+  "Return the position of the time file PROPERTY if it exists.
+   When ANYWHERE is non-nil, search beyond the preamble."
+
+    (save-excursion
+      (goto-char (point-min))
+      (let ((first-heading
+             (save-excursion
+               (re-search-forward org-outline-regexp-bol nil t))))
+        (when (re-search-forward (format "^#\\+%s:" property)
+                                 (if anywhere nil first-heading)
+                                 t)
+          (point)))))
 #+END_SRC

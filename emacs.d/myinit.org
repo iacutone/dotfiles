@@ -17,7 +17,7 @@
 (require 'evil)
 (evil-mode 1)
 
-(define-key evil-ex-map "b " 'helm-mini)
+(define-key evil-ex-map "b" 'helm-mini)
 (define-key evil-ex-map "e" 'helm-find-files)
 (define-key evil-ex-map "g" 'helm-projectile-grep)
 (define-key evil-ex-map "f" 'helm-projectile-find-file)
@@ -338,32 +338,6 @@ https://blog.tohojo.dk/2015/10/integrating-hugo-into-emacs.html
 (require 'deadgrep)
 (global-set-key (kbd "<f5>") #'deadgrep)
 #+END_SRC
-
-#* grab links
-##+BEGIN_SRC emacs-lisp
-#(add-hook 'org-mode-hook (lambda () 
-#			  (define-key org-mode-map (kbd "C-c g") 'org-mac-grab-link)))
-
-#(use-package org-mac-link
-# :ensure t
-# :if (eq system-type 'darwin)
-# :bind ("C-c v" . my/quick-url-note)
-# :config
-# (defun my/quick-url-note ()
-#  "Fastest way to capture a web page link"
-#  (interactive)
-#  (org-capture nil "n")
-#  (org-mac-chrome-insert-frontmost-url)
-#  (org-capture-finalize)))
-
-#(defun my/last-captured-org-note ()
-# "Move to the end of penultimate line of the last org capture note."
-# (interactive)
-# (find-file "~/Dropbox/orgfiles/links.org")
-# (end-of-buffer)
-# (forward-line -2)
-# (org-end-of-line))
-##+END_SRC
 
 * shackle
 #+BEGIN_SRC emacs-lisp
