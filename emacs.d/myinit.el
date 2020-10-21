@@ -40,6 +40,14 @@
   :ensure t
   :bind ("M-s" . avy-goto-word-1))
 
+(use-package ivy)
+(ivy-mode 1)
+(setq ivy-use-virtual-buffers t)
+(setq enable-recursive-minibuffers t)
+(global-set-key "\C-s" 'swiper)
+(global-set-key (kbd "C-c C-r") 'ivy-resume)
+(global-set-key (kbd "<f6>") 'ivy-resume)
+
 (use-package swiper
   :ensure t
   :bind
@@ -432,3 +440,11 @@
 	 ))
 
 (setq rtags-display-result-backend 'helm)
+
+(use-package ledger-mode
+  :ensure t
+  :defer t
+  :init
+  )
+
+(add-to-list 'auto-mode-alist '("\\.ledger$" . ledger-mode))

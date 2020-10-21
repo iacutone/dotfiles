@@ -1,3 +1,5 @@
+set -o vi
+
 # =============
 #    ALIAS
 # =============
@@ -21,8 +23,8 @@ source "$HOME/dotfiles/variables.sh"
 source $ZSH/oh-my-zsh.sh
 source ~/.bash_profile
 source /usr/local/share/chruby/chruby.sh
-source /usr/local/opt/chruby/share/chruby/auto.sh
-
+source /usr/local/share/chruby/auto.sh
+export GOPATH=$HOME/go
 
 # =============
 #   FUNCTIONS
@@ -94,6 +96,11 @@ source /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 # z.sh
 . ~/dotfiles/z.sh
 
+eval "$(direnv hook zsh)"
+
+# asdf
+. $(brew --prefix asdf)/asdf.sh
+
 # >>> conda initialize >>>
 # !! Contents within this block are managed by 'conda init' !!
 __conda_setup="$('/anaconda3/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
@@ -109,3 +116,10 @@ fi
 unset __conda_setup
 # <<< conda initialize <<<
 
+db_set () {
+    echo "$1,$2" >> database
+}
+
+db_get () {
+    grep "^$1," database | sed -e "s/^$1,//" | tail -n 1
+}

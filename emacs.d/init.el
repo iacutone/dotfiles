@@ -49,12 +49,12 @@
                     (quote
                      ("~/Dropbox/orgfiles/work.org" "~/Dropbox/orgfiles/life.org")))))
        (tags "-Goal+TODO=\"DONE\"" nil)
-       (tags "-Goal-DEADLINE>=\"<+7d>\"+‘work/!+TODO|+WAITING|+NEXT|+SCHEDULED’" nil)
+       (tags "-Goal-DEADLINE>=\"<+7d>\"+‘work/!+TODO|+WAITING|+NEXT|+SCHEDULED|+PROJ’" nil)
        (tags "TODO=\"TODO\"+INTERVAL=\"short\"" nil)
        (todo "CANCELED"
              ((org-agenda-files
                (quote
-                ("~/Dropbox/orgfiles/work.org")))))
+                ("~/Dropbox/orgfiles/work.org" "~/Dropbox/orgfiles/life.org")))))
        (agenda ""
                ((org-agenda-files
                  (quote

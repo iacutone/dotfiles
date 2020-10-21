@@ -250,3 +250,9 @@ nmap <C-c><C-c> <Plug>NormalModeSendToTmux
 nmap <C-c>r <Plug>SetTmuxVars
 
 imap <c-c> <esc>
+
+" set colorcolumn=80 textwidth=79
+
+" Use preview when FzfFiles runs in fullscreen
+command! -nargs=? -bang -complete=dir FzfFiles
+      \ call fzf#vim#files(<q-args>, <bang>0 ? fzf#vim#with_preview('up:60%') : {}, <bang>0)
