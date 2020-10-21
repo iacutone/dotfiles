@@ -80,6 +80,9 @@ Plugin 'sheerun/vim-polyglot'
 Plugin 'slashmili/alchemist.vim'
 Plugin 'wincent/terminus'
 Plugin 'jgdavey/tslime.vim'
+Plugin 'tpope/vim-rhubarb'
+Plugin 'elixir-editors/vim-elixir'
+" Plugin 'mhinz/vim-signify'
 " Plugin 'alok/notational-fzf-vim'
 " Plugin 'https://github.com/neoclide/coc.nvim'
 " Plugin 'Shougo/deoplete.nvim'
@@ -91,7 +94,7 @@ set autoindent
 
 " Only do this part when compiled with support for autocommands
 if has("autocmd")
-  autocmd FileType ruby,haml,eruby,yaml,html,javascript,sass,css,scss,cucumber,coffee,sh setlocal ai sw=2 sts=2 et
+  autocmd FileType ruby,haml,eruby,yaml,html,javascript,sass,css,scss,cucumber,coffee,sh,erl setlocal ai sw=2 sts=2 et
   autocmd FileType elm setlocal sw=4 sts=4 ts=4
   autocmd BufWritePre *.rb,*.js :call <SID>StripTrailingWhitespaces()
 endif
