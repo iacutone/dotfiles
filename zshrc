@@ -1,5 +1,5 @@
 set -o vi
-export EDITOR=vim
+export EDITOR=vi
 
 # =============
 #    ALIAS
@@ -28,7 +28,6 @@ plugins=(git
 
 source "$HOME/Dropbox/variables.sh"
 source $ZSH/oh-my-zsh.sh
-
 
 # =============
 #   FUNCTIONS

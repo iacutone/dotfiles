@@ -46,14 +46,6 @@
   :ensure t
   :bind ("M-s" . avy-goto-word-1))
 
-; (use-package ivy)
-; (ivy-mode 1)
-; (setq ivy-use-virtual-buffers t)
-; (setq enable-recursive-minibuffers t)
-; (global-set-key "\C-s" 'swiper)
-; (global-set-key (kbd "C-c C-r") 'ivy-resume)
-; (global-set-key (kbd "<f6>") 'ivy-resume)
-
 (use-package swiper
   :ensure t
   :bind
@@ -264,3 +256,11 @@
         org-roam-server-network-label-truncate t
         org-roam-server-network-label-truncate-length 60
         org-roam-server-network-label-wrap-length 20))
+
+(use-package ledger-mode
+  :ensure t
+  :defer t
+  :init
+  )
+
+(add-to-list 'auto-mode-alist '("\\.ledger$" . ledger-mode))
