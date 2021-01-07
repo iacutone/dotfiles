@@ -50,12 +50,8 @@ function play {
 function mp3 {
   # Download all of the things to /Downloads/audio/
 
-  youtube-dl --default-search=ytsearch: \
-             --restrict-filenames \
-             --format=bestaudio \
-             --audio-format=mp3 \
-             --audio-quality=1 "$*" \
-             --output="~/Downloads/audio/%(title)s.%(ext)s"
+  youtube-dl -f 'bestvideo[ext=mp4]+bestaudio[ext=m4a]/mp4' "$*" \
+    --output="~/Downloads/audio/%(title)s.%(ext)s"
 }
 
 
