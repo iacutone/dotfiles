@@ -8,6 +8,8 @@ __Bad__
 What bored you?
 What disengaged you?
 
+What am I not doing?
+
 | Failure | Screwup | Weakness | Growth Opportunity | Insight |
 |---------+---------+----------+--------------------+---------|
 |         |         |          |                    |         |

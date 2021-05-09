@@ -1,5 +1,6 @@
 set -o vi
-export EDITOR=vi
+export EDITOR=vim
+export PATH="/usr/local/sbin:$PATH"
 
 # =============
 #    ALIAS
@@ -16,8 +17,6 @@ ZSH_THEME=theunraveler
 plugins=(git
   bundler 
   history-substring-search
-  zsh-autosuggestions
-  zsh-syntax-highlighting
   osx
 )
 
@@ -50,8 +49,8 @@ function play {
 function mp3 {
   # Download all of the things to /Downloads/audio/
 
-  youtube-dl -f 'bestvideo[ext=mp4]+bestaudio[ext=m4a]/mp4' "$*" \
-    --output="~/Downloads/audio/%(title)s.%(ext)s"
+  youtube-dl -f 'bestaudio[ext=m4a]/mp4' "$*" \
+    --output="~/Downloads/audio/%(title)s.%(ext)s" \
 }
 
 
@@ -70,12 +69,21 @@ if [ -e /usr/local/opt/fzf/shell/completion.zsh ]; then
   source /usr/local/opt/fzf/shell/completion.zsh
 fi
 
+# ===================
+#    PLUGINS
+# ===================
+
+# brew install zsh-autosuggestions
+source /usr/local/share/zsh-autosuggestions/zsh-autosuggestions.zsh
+
+# brew install zsh-syntax-highlighting
+source /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+
 # z.sh
 . ~/dotfiles/z.sh
 
 # asdf
-. $(brew --prefix asdf)/asdf.sh
-. $(brew --prefix asdf)/etc/bash_completion.d/asdf.bash
+. /usr/local/opt/asdf/asdf.sh
 
 db_set () {
     echo "$1,$2" >> database

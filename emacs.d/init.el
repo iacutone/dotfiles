@@ -1,22 +1,4 @@
-(require 'package)
-(setq package-enable-at-startup nil)
-(add-to-list 'package-archives '("org" . "http://orgmode.org/elpa/"))
-(add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/"))
-(package-initialize)
-
-(setq evil-want-C-i-jump nil)
-(defalias 'list-buffers 'ibuffer) ; make ibuffer default
-
-(setq inhibit-startup-message t)
-(setq initial-scratch-message "")
-(setq org-agenda-include-diary t)
-
-;; Bootstrap `use-package'
-(unless (package-installed-p 'use-package)
-	(package-refresh-contents)
-	(package-install 'use-package))
-
-(global-set-key (kbd "<f6>") 'org-capture)
+(global-set-key (kbd "<escape>") 'keyboard-escape-quit)
 
 (org-babel-load-file (expand-file-name "~/dotfiles/emacs.d/myinit.org"))
 (org-babel-load-file (expand-file-name "~/dotfiles/emacs.d/org-setup.org"))
@@ -58,9 +40,8 @@
        (agenda ""
                ((org-agenda-files
                  (quote
-                  ("~/Dropbox/orgfiles/birthdays.org" "~/Dropbox/orgfiles/life.org" "~/Dropbox/orgfiles/work.org"))))))
+                  ("~/Dropbox/orgfiles/birthdays.org" "~/Dropbox/orgfiles/life.org" "~/Dropbox/orgfiles/work.org" "~/Dropbox/orgfiles/gcal.org"))))))
       nil nil))))
- '(org-babel-load-languages (quote ((emacs-lisp . t) (dot . t) (ruby . t) (shell . t))))
  '(org-clock-into-drawer "CLOCKING")
  '(org-enforce-todo-checkbox-dependencies t)
  '(org-export-backends (quote (ascii beamer html icalendar latex odt)))

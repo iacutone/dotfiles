@@ -1,4 +1,4 @@
-* %^L %^g
+* [[%^{Video link}][%^{Video title}]]
 %?
 :LOGBOOK:
 - Added: %U

@@ -1,4 +1,9 @@
 (use-package org)
+; (use-package org-ellipsis)
+
+(use-package visual-fill-column
+  :defer t
+  :hook (org-mode . ei/org-mode-visual-fill))
 
 (use-package org-bullets
   :ensure t
@@ -77,6 +82,7 @@
  (org-capture))
 
 (setq org-log-done 'time)
+(setq org-log-into-drawer t)
 
 ; http://doc.norang.ca/org-mode.html
 (defun bh/org-auto-exclude-function (tag)
@@ -113,3 +119,162 @@
 ;(add-hook 'org-mode-hook
 ;  (lambda ()
 ;    (add-hook 'before-save-hook 'org-add-ids-to-headlines-in-file nil 'local)))
+
+(dolist (face '((org-level-1 . 1.2)
+                (org-level-2 . 1.1)
+                (org-level-3 . 1.05)
+                (org-level-4 . 1.0)
+                (org-level-5 . 1.1)
+                (org-level-6 . 1.1)
+                (org-level-7 . 1.1)
+                (org-level-8 . 1.1))))
+
+;; Make sure org-indent face is available
+(require 'org-indent)
+
+;; Ensure that anything that should be fixed-pitch in Org files appears that way
+(set-face-attribute 'org-block nil :foreground nil :inherit 'fixed-pitch)
+(set-face-attribute 'org-code nil   :inherit '(shadow fixed-pitch))
+(set-face-attribute 'org-indent nil :inherit '(org-hide fixed-pitch))
+(set-face-attribute 'org-verbatim nil :inherit '(shadow fixed-pitch))
+(set-face-attribute 'org-special-keyword nil :inherit '(font-lock-comment-face fixed-pitch))
+(set-face-attribute 'org-meta-line nil :inherit '(font-lock-comment-face fixed-pitch))
+(set-face-attribute 'org-checkbox nil :inherit 'fixed-pitch)
+
+(defun ei/org-mode-visual-fill ()
+  (setq visual-fill-column-width 100
+        visual-fill-column-center-text t)
+  (visual-fill-column-mode 1))
+  
+(require 'org-tempo)
+(add-to-list 'org-structure-template-alist '("sh" . "src sh"))
+(add-to-list 'org-structure-template-alist '("el" . "src emacs-lisp"))
+(add-to-list 'org-structure-template-alist '("py" . "src python"))
+
+(org-babel-do-load-languages
+  'org-babel-load-languages
+  '((emacs-lisp . t)
+    (ledger . t)))
+  
+(setq org-confirm-bable-evaluate nil)
+
+(push '("conf-unix" . conf-unix) org-src-lang-modes)
+
+(use-package deft
+      :after org
+      :bind
+      ("C-c n d" . deft)
+      :custom
+      (deft-recursive t)
+      (deft-use-filter-string-for-filename t)
+      (deft-default-extension "org")
+      (deft-directory "~/Dropbox/orgfiles/roam"))
+
+(use-package org-journal
+      :bind
+      ("C-c n j" . org-journal-new-entry)
+      :custom
+      (org-journal-date-prefix "#+TITLE: ")
+      (org-journal-file-format "%Y-%m-%d.org")
+      (org-journal-dir "~/Dropbox/orgfiles/roam")
+      (org-journal-date-format "%A, %d %B %Y"))
+
+(use-package org-roam
+  :hook ((after-init . org-roam-mode))
+  :custom
+  (org-roam-directory "~/Dropbox/orgfiles/roam")
+  (org-roam-index-file "index.org")
+  :bind (:map org-roam-mode-map
+         (("C-c m l" . org-roam)
+          ("C-c m F" . org-roam-find-file)
+          ("C-c m r" . org-roam-find-ref)
+          ("C-c m ." . org-roam-find-directory)
+          ("C-c m >" . zp/org-roam-find-directory-testing)
+          ("C-c m d" . org-roam-dailies-map)
+          ("C-c m j" . org-roam-jump-to-index)
+          ("C-c m b" . org-roam-switch-to-buffer)
+          ("C-c m g" . org-roam-graph))
+         :map org-mode-map
+         (("C-c m i" . org-roam-insert)))
+  :config
+  (setq org-roam-capture-templates
+        '(("d" "default" plain
+           (function org-roam-capture--get-point)
+           "%?"
+           :file-name "%<%Y%m%d%H%M%S>-${slug}"
+           :head "#+TITLE: ${title}\n#+ROAM_TAGS: %^{org-roam-tags}\n#+CREATED: %u\n#+LAST_MODIFIED: %U\n+\n"
+           :unnarrowed t))))
+
+;;--------------------------
+;; Handling file properties for ‘CREATED’ & ‘LAST_MODIFIED’
+;;--------------------------
+
+(defun zp/org-find-time-file-property (property &optional anywhere)
+  "Return the position of the time file PROPERTY if it exists.
+   When ANYWHERE is non-nil, search beyond the preamble."
+  (save-excursion
+    (goto-char (point-min))
+    (let ((first-heading
+           (save-excursion
+             (re-search-forward org-outline-regexp-bol nil t))))
+      (when (re-search-forward (format "^#\\+%s:" property)
+                               (if anywhere nil first-heading)
+                               t)
+        (point)))))
+
+(defun zp/org-has-time-file-property-p (property &optional anywhere)
+  "Return the position of time file PROPERTY if it is defined.
+   As a special case, return -1 if the time file PROPERTY exists but
+   is not defined."
+  (when-let ((pos (zp/org-find-time-file-property property anywhere)))
+    (save-excursion
+      (goto-char pos)
+      (if (and (looking-at-p " ")
+               (progn (forward-char)
+                      (org-at-timestamp-p 'lax)))
+          pos
+        -1))))
+
+(defun zp/org-set-time-file-property (property &optional anywhere pos)
+  "Set the time file PROPERTY in the preamble.
+   When ANYWHERE is non-nil, search beyond the preamble.
+   If the position of the file PROPERTY has already been computed,
+   it can be passed in POS."
+  (when-let ((pos (or pos
+                      (zp/org-find-time-file-property property))))
+    (save-excursion
+      (goto-char pos)
+      (if (looking-at-p " ")
+          (forward-char)
+        (insert " "))
+      (delete-region (point) (line-end-position))
+      (let* ((now (format-time-string "[%Y-%m-%d %a %H:%M]")))
+        (insert now)))))
+
+(defun zp/org-set-last-modified ()
+  "Update the LAST_MODIFIED file property in the preamble."
+  (when (derived-mode-p 'org-mode)
+    (zp/org-set-time-file-property "LAST_MODIFIED")))
+
+(setq org-roam-completion-system 'ivy)
+
+(use-package org-roam-server
+  :bind (:map org-roam-mode-map
+         (("C-c m G" . org-roam-server-mode)))
+  :config
+  (setq org-roam-server-host "127.0.0.1"
+        org-roam-server-port 9999
+        org-roam-server-export-inline-images t
+        org-roam-server-authenticate nil
+        org-roam-server-network-poll t
+        org-roam-server-network-arrows nil
+        org-roam-server-network-label-truncate t
+        org-roam-server-network-label-truncate-length 60
+        org-roam-server-network-label-wrap-length 20))
+
+(use-package ledger-mode
+  :defer t
+  :init
+  )
+
+(add-to-list 'auto-mode-alist '("\\.ledger$" . ledger-mode))
