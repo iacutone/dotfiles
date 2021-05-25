@@ -129,10 +129,7 @@
          :map ivy-switch-buffer-map
          ("C-k" . ivy-previous-line)
          ("C-l" . ivy-done)
-         ("C-d" . ivy-switch-buffer-kill)
-         :map ivy-reverse-i-search-map
-         ("C-k" . ivy-previous-line)
-         ("C-d" . ivy-reverse-i-search-kill))
+         ("C-d" . ivy-switch-buffer-kill))
   :init
   (ivy-mode 1))
 
@@ -149,10 +146,6 @@
          ("C-M-l" . counsel-imenu)
          :map minibuffer-local-map
          ("C-r" . 'counsel-minibuffer-history)))
-  ;; :custom
-  ;; (counsel-linux-app-format-function #'counsel-linux-app-format-function-name-only)
-  ;; :config
-  ;; (setq ivy-initial-inputs-alist nil)) ;; Don't start searches with ^
 
 (use-package flycheck
   :init
@@ -250,9 +243,6 @@
   :commands (magit-status magit-get-current-branch)
   :custom
   (magit-display-buffer-function #'magit-display-buffer-same-window-except-diff-v1))
-
-(use-package evil-magit
-  :after magit)
 
 ;; Add a super-convenient global binding for magit-status since
 ;; I use it 8 million times a day
