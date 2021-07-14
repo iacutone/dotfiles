@@ -327,7 +327,10 @@
 (setq elfeed-db-directory "~/Dropbox/orgfiles/elfeeddb")
 
 (use-package elfeed
-  :ensure t)
+  :ensure t
+  :bind 
+  (:map elfeed-search-mode-map
+    ("q" . bjm/elfeed-save-db-and-bury)))
 
 (use-package elfeed-goodies
   :ensure t)
@@ -342,3 +345,33 @@
       (interactive)
       (mark-whole-buffer)
       (elfeed-search-untag-all-unread))
+
+(defun bjm/elfeed-load-db-and-open ()
+  "Load the elfeed db from disk before updating."
+  (interactive)
+  (elfeed)
+  (elfeed-db-load)
+  (elfeed-search-update--force)
+  (elfeed-update))
+
+(defun bjm/elfeed-save-db-and-bury ()
+  "Wrapper to save the elfeed db to disk before burying buffer"
+  (interactive)
+  (elfeed-db-save)
+  (quit-window))
+
+(add-to-list 'load-path "/usr/local/share/emacs/site-lisp/mu/mu4e")
+(require 'mu4e)
+(setq mu4e-mu-binary "/usr/local/bin/mu")
+
+(setq mu4e-maildir "~/.mail"
+mu4e-attachment-dir "~/Downloads")
+
+(setq user-mail-address "iacutone@protonmail.com"
+user-full-name  "Eric Iacutone")
+
+;; Get mail
+(setq mu4e-get-mail-command  "mbsync -a")
+;; (setq mu4e-get-mail-command "mbsync protonmail"
+;; mu4e-change-filenames-when-moving t   ; needed for mbsync
+;; mu4e-update-interval 120)             ; update every 2 minutes
