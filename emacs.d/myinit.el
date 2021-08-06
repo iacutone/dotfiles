@@ -330,7 +330,8 @@
   :ensure t
   :bind 
   (:map elfeed-search-mode-map
-    ("q" . bjm/elfeed-save-db-and-bury)))
+    ("q" . bjm/elfeed-save-db-and-bury)
+    ("Q" . bjm/elfeed-save-db-and-bury)))
 
 (use-package elfeed-goodies
   :ensure t)
@@ -347,12 +348,11 @@
       (elfeed-search-untag-all-unread))
 
 (defun bjm/elfeed-load-db-and-open ()
-  "Load the elfeed db from disk before updating."
+  "Wrapper to load the elfeed db from disk before opening"
   (interactive)
-  (elfeed)
   (elfeed-db-load)
-  (elfeed-search-update--force)
-  (elfeed-update))
+  (elfeed)
+  (elfeed-search-update--force))
 
 (defun bjm/elfeed-save-db-and-bury ()
   "Wrapper to save the elfeed db to disk before burying buffer"
