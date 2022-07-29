@@ -31,6 +31,9 @@
                 eshell-mode-hook))
   (add-hook mode (lambda () (display-line-numbers-mode 0))))
 
+(add-hook 'auto-save-hook 'org-save-all-org-buffers)
+(global-auto-revert-mode t)
+
 (use-package try)
 
 (use-package which-key
@@ -359,6 +362,19 @@
   (interactive)
   (elfeed-db-save)
   (quit-window))
+
+(defun elfeed-v-mpv (url)
+  "Watch a video from URL in MPV" 
+  (async-shell-command (format "mpv %s" url)))(defun elfeed-view-mpv (&optional use-generic-p)
+  "Youtube-feed link"
+  (interactive "P")
+  (let ((entries (elfeed-search-selected)))
+    (cl-loop for entry in entries
+     do (elfeed-untag entry 'unread)
+     when (elfeed-entry-link entry) 
+     do (elfeed-v-mpv it)) 
+   (mapc #'elfeed-search-update-entry entries) 
+   (unless (use-region-p) (forward-line)))) (define-key elfeed-search-mode-map (kbd "v") 'elfeed-view-mpv)
 
 (add-to-list 'load-path "/usr/local/share/emacs/site-lisp/mu/mu4e")
 (require 'mu4e)
