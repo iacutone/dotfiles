@@ -17,7 +17,7 @@ ZSH_THEME=theunraveler
 plugins=(git
   bundler 
   history-substring-search
-  osx
+  macos
 )
 
 
@@ -25,7 +25,9 @@ plugins=(git
 #    SOURCE
 # =============
 
-source "$HOME/Dropbox/variables.sh"
+# source "$HOME/Dropbox/variables.sh"
+source ~/.cars_secrets
+export ZSH=~/.oh-my-zsh
 source $ZSH/oh-my-zsh.sh
 
 # =============
@@ -74,16 +76,16 @@ fi
 # ===================
 
 # brew install zsh-autosuggestions
-source /usr/local/share/zsh-autosuggestions/zsh-autosuggestions.zsh
+source /opt/homebrew/share/zsh-autosuggestions/zsh-autosuggestions.zsh
 
 # brew install zsh-syntax-highlighting
-source /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+source /opt/homebrew/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
 # z.sh
 . ~/dotfiles/z.sh
 
 # asdf
-. /usr/local/opt/asdf/asdf.sh
+. /opt/homebrew/opt/asdf/libexec/asdf.sh
 
 db_set () {
     echo "$1,$2" >> database
