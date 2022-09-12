@@ -18,16 +18,15 @@ plugins=(git
   bundler 
   history-substring-search
   macos
+  zsh-autosuggestions
+  zsh-syntax-highlighting
 )
-
 
 # =============
 #    SOURCE
 # =============
 
-# source "$HOME/Dropbox/variables.sh"
-source ~/.cars_secrets
-export ZSH=~/.oh-my-zsh
+source "$HOME/Dropbox/variables.sh"
 source $ZSH/oh-my-zsh.sh
 
 # =============
@@ -75,12 +74,6 @@ fi
 #    PLUGINS
 # ===================
 
-# brew install zsh-autosuggestions
-source /opt/homebrew/share/zsh-autosuggestions/zsh-autosuggestions.zsh
-
-# brew install zsh-syntax-highlighting
-source /opt/homebrew/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-
 # z.sh
 . ~/dotfiles/z.sh
 
@@ -94,3 +87,5 @@ db_set () {
 db_get () {
     grep "^$1," database | sed -e "s/^$1,//" | tail -n 1
 }
+
+. /opt/homebrew/opt/asdf/libexec/asdf.sh
