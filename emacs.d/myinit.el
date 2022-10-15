@@ -391,3 +391,8 @@ user-full-name  "Eric Iacutone")
 ;; (setq mu4e-get-mail-command "mbsync protonmail"
 ;; mu4e-change-filenames-when-moving t   ; needed for mbsync
 ;; mu4e-update-interval 120)             ; update every 2 minutes
+
+(use-package ox-hugo
+  :ensure t   ;Auto-install the package from Melpa
+  :pin melpa  ;`package-archives' should already have ("melpa" . "https://melpa.org/packages/")
+  :after ox)
