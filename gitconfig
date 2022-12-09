@@ -3,7 +3,7 @@
   email = eric.iacutone@gmail.com
 [core]
   excludesfile = /Users/iacutone/.gitignore
-  editor = vim
+  editor = nvim
 [alias]
   co = checkout
   br = branch
