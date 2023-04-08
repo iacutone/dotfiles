@@ -53,7 +53,7 @@
 	    (file "~/dotfiles/emacs.d/template-movie.txt"))
           ("ln" "Note" entry (file+headline "~/Dropbox/orgfiles/notes.org" "Notes")
 	    (file "~/dotfiles/emacs.d/template-note.txt"))
-	  ("lo" "Book" entry (file+headline "~/Dropbox/orgfiles/book.org" "Book") 
+	  ("lo" "Book" entry (file+headline "~/Dropbox/orgfiles/entertainment.org" "Book") 
 	    (file "~/dotfiles/emacs.d/template-book.txt"))
 	  ("lr" "Recipe" entry (file+headline "~/Dropbox/orgfiles/recipes.org" "Recipes")
 	    (file "~/dotfiles/emacs.d/template-recipe.txt"))
@@ -159,20 +159,64 @@
 (use-package org-roam
   :ensure t
   :init
-  (setq org-roam-v2-ack t)
   :custom
   (org-roam-completion-everywhere t)
-  :bind (("C-c n l" . org-roam-buffer-toggle)
-         ("C-c n f" . org-roam-node-find)
-         ("C-c n g" . org-roam-graph)
-         ("C-c n i" . org-roam-node-insert)
-         ("C-c n c" . org-roam-capture)
-         ;; Dailies
-         ("C-c n j" . org-roam-dailies-capture-today))
+  :bind 
+  (("C-c r c" . org-roam-capture)
+   ("C-c r d" . org-roam-dailies-capture-today)
+   ("C-c r i" . org-roam-node-insert)
+   ("C-c r f" . org-roam-node-find))
   :config
   (setq org-roam-directory (expand-file-name "~/Dropbox/orgfiles/roam"))
-  (org-roam-setup)
-  (require 'org-roam-protocol))
+  (setq org-roam-capture-templates '(("d" "default" plain "%?"
+                                      :target
+                                      :unnarrowed t)
+                                     ("r" "bibliography reference" plain
+                                      "%?"
+                                      :target
+                                      (file+head
+                                       "references/${citekey}.org"
+                                       "#+title: ${title}\n")
+                                      :unnarrowed t)))
+	(org-roam-db-autosync-mode t))
+#+END_SRC
+
+* Org Roam UI
+#+BEGIN_SRC emacs-lisp
+(use-package org-roam-ui
+  :ensure t
+  :after org-roam
+  (setq org-roam-ui-sync-theme t
+        org-roam-ui-follow t
+        org-roam-ui-update-on-save t
+        org-roam-ui-open-on-start t))
+
+(use-package org-ref
+  :ensure t
+  :config
+  (setq
+   bibtex-completion-bibliography '("~/Zotero/bibtex.bib")
+   bibtex-completion-notes-path "~/Documents/notes/references"
+   bibtex-completion-pdf-field "file"
+   bibtex-completion-pdf-open-function
+   (lambda (fpath)
+     (call-process "open" nil 0 nil fpath))))
+
+(use-package ivy-bibtex
+  :ensure t
+  :after org-ref)
+#+END_SRC
+
+* Org Roam Bibtex
+#+BEGIN_SRC emacs-lisp
+(use-package org-roam-bibtex
+  :ensure t  
+  :after org-roam
+  :hook (org-roam-mode . org-roam-bibtex-mode)
+  :bind
+  (("C-c r z" . orb-insert-link))
+  :config
+  (require 'org-ref))
 #+END_SRC
 
 * org-ledger
@@ -183,4 +227,15 @@
   )
 
 (add-to-list 'auto-mode-alist '("\\.ledger$" . ledger-mode))
+#+END_SRC
+
+* Org Super Agenda
+#+BEGIN_SRC emacs-lisp
+ ;;  (use-package org-super-agenda
+ ;;     :straight t
+ ;;     :after org
+ ;;     :defer t
+ ;;     :config
+ ;;     (org-agenda nil "u")
+ ;;     )
 #+END_SRC

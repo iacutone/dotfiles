@@ -81,21 +81,6 @@
 (use-package hydra
   :defer 1)
 
-(use-package doom-themes)
-(require 'doom-themes)
-
-(setq doom-themes-enable-bold t    ; if nil, bold is universally disabled
-      doom-themes-enable-italic t) ; if nil, italics is universally disabled
-
-(load-theme 'doom-molokai t)
-(doom-themes-visual-bell-config)
-(doom-themes-neotree-config)  ; all-the-icons fonts must be installed!
-
-(use-package all-the-icons)
-(use-package doom-modeline
-  :init (doom-modeline-mode 1)
-  :custom ((doom-modeline-height 15)))
-
 (use-package auto-complete
   :init
   (progn
@@ -331,10 +316,17 @@
 
 (use-package elfeed
   :ensure t
-  :bind 
-  (:map elfeed-search-mode-map
-    ("q" . bjm/elfeed-save-db-and-bury)
-    ("Q" . bjm/elfeed-save-db-and-bury)))
+  :bind (:map elfeed-search-mode-map
+              ("A" . bjm/elfeed-show-all)
+              ("S" . bjm/elfeed-show-science)
+              ("C" . bjm/elfeed-show-compsci)
+              ("Y" . bjm/elfeed-show-youtube)
+              ("M" . bjm/elfeed-show-music)
+              ("P" . bjm/elfeed-show-popular)
+              ("C" . bjm/elfeed-show-cooking)
+              ("T" . bjm/elfeed-show-tech)
+              ("M" . bjm/elfeed-show-movies)
+              ("q" . bjm/elfeed-save-db-and-bury)))
 
 (use-package elfeed-goodies
   :ensure t)
@@ -363,6 +355,51 @@
   (elfeed-db-save)
   (quit-window))
 
+(defun bjm/elfeed-show-all ()
+  (interactive)
+  (bookmark-maybe-load-default-file)
+  (bookmark-jump "elfeed-all"))
+
+(defun bjm/elfeed-show-science ()
+  (interactive)
+  (bookmark-maybe-load-default-file)
+  (bookmark-jump "elfeed-science"))
+
+(defun bjm/elfeed-show-compsci ()
+  (interactive)
+  (bookmark-maybe-load-default-file)
+  (bookmark-jump "elfeed-compsci"))
+
+(defun bjm/elfeed-show-youtube ()
+  (interactive)
+  (bookmark-maybe-load-default-file)
+  (bookmark-jump "elfeed-youtube"))
+
+(defun bjm/elfeed-show-music ()
+  (interactive)
+  (bookmark-maybe-load-default-file)
+  (bookmark-jump "elfeed-music"))
+
+(defun bjm/elfeed-show-popular ()
+  (interactive)
+  (bookmark-maybe-load-default-file)
+  (bookmark-jump "elfeed-popular"))
+
+(defun bjm/elfeed-show-cooking ()
+  (interactive)
+  (bookmark-maybe-load-default-file)
+  (bookmark-jump "elfeed-cooking"))
+
+(defun bjm/elfeed-show-tech ()
+  (interactive)
+  (bookmark-maybe-load-default-file)
+  (bookmark-jump "elfeed-tech"))
+
+(defun bjm/elfeed-show-movies ()
+  (interactive)
+  (bookmark-maybe-load-default-file)
+  (bookmark-jump "elfeed-movies"))
+
 (defun elfeed-v-mpv (url)
   "Watch a video from URL in MPV" 
   (async-shell-command (format "mpv %s" url)))(defun elfeed-view-mpv (&optional use-generic-p)
@@ -376,18 +413,18 @@
    (mapc #'elfeed-search-update-entry entries) 
    (unless (use-region-p) (forward-line)))) (define-key elfeed-search-mode-map (kbd "v") 'elfeed-view-mpv)
 
-(add-to-list 'load-path "/usr/local/share/emacs/site-lisp/mu/mu4e")
-(require 'mu4e)
-(setq mu4e-mu-binary "/usr/local/bin/mu")
+;; (add-to-list 'load-path "/usr/local/share/emacs/site-lisp/mu/mu4e")
+;; (require 'mu4e)
+;; (setq mu4e-mu-binary "/usr/local/bin/mu")
 
-(setq mu4e-maildir "~/.mail"
-mu4e-attachment-dir "~/Downloads")
+;; (setq mu4e-maildir "~/.mail"
+;; mu4e-attachment-dir "~/Downloads")
 
-(setq user-mail-address "iacutone@protonmail.com"
-user-full-name  "Eric Iacutone")
+;; (setq user-mail-address "iacutone@protonmail.com"
+;; user-full-name  "Eric Iacutone")
 
 ;; Get mail
-(setq mu4e-get-mail-command  "mbsync -a")
+;; (setq mu4e-get-mail-command  "mbsync -a")
 ;; (setq mu4e-get-mail-command "mbsync protonmail"
 ;; mu4e-change-filenames-when-moving t   ; needed for mbsync
 ;; mu4e-update-interval 120)             ; update every 2 minutes
@@ -396,3 +433,30 @@ user-full-name  "Eric Iacutone")
   :ensure t   ;Auto-install the package from Melpa
   :pin melpa  ;`package-archives' should already have ("melpa" . "https://melpa.org/packages/")
   :after ox)
+
+;; http://blog.sidhartharya.com/exporting-org-roam-notes-to-hugo/
+(require 'org-roam)
+
+(defun my-org-hugo-org-roam-sync-all()
+  "Sync all org-roam files"
+  (interactive)
+  (setq org-hugo-base-dir "~/thoughts")
+  (dolist (fil (org-roam--list-files org-roam-directory))
+    (with-current-buffer (find-file-noselect fil)
+      (org-hugo-export-wim-to-md)
+      (kill-buffer))))
+
+(use-package doom-themes)
+(require 'doom-themes)
+
+(setq doom-themes-enable-bold t    ; if nil, bold is universally disabled
+      doom-themes-enable-italic t) ; if nil, italics is universally disabled
+
+(load-theme 'doom-molokai t)
+(doom-themes-visual-bell-config)
+(doom-themes-neotree-config)  ; all-the-icons fonts must be installed!
+
+(use-package all-the-icons)
+(use-package doom-modeline
+  :init (doom-modeline-mode 1)
+  :custom ((doom-modeline-height 15)))

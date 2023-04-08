@@ -1,4 +1,4 @@
-* %^{Author} - %^{Title}
+* COMSUME %^{Author} - %^{Title}
   :PROPERTIES:
   :PAGES: %^{Pages}
   :GENRE: %^{Genre}
