@@ -300,16 +300,6 @@
     "h" 'dired-up-directory
     "l" 'dired-find-file))
 
-(use-package org-gcal
-  :ensure t
-  :config
-  (setq org-gcal-client-id (exec-path-from-shell-copy-env "WORK_GMAIL_CAL_CLIENT_ID")
-	org-gcal-client-secret (exec-path-from-shell-copy-env "WORK_GMAIL_CAL_CLIENT_SECRET")
-	org-gcal-file-alist '(("eric@kamana.com" .  "~/Dropbox/orgfiles/gcal.org"))))
-
-(add-hook 'org-agenda-mode-hook (lambda () (org-gcal-fetch) ))
-; (add-hook 'org-capture-after-finalize-hook (lambda () (org-gcal-fetch)))
-
 (use-package exec-path-from-shell)
 
 (setq elfeed-db-directory "~/Dropbox/orgfiles/elfeeddb")

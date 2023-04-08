@@ -1,5 +1,4 @@
 (use-package org)
-; (use-package org-ellipsis)
 
 (use-package visual-fill-column
   :defer t
@@ -22,6 +21,7 @@
 			     "~/Dropbox/orgfiles/goals.org"
 			     "~/Dropbox/orgfiles/birthdays.org"
 			     "~/Dropbox/orgfiles/entertainment.org"))
+
 ; Set key combos
 (define-key global-map "\C-ca" 'org-agenda)
 
@@ -73,40 +73,9 @@
 	  ("gs" "Short term goals (next 6 months)" entry (file+headline "~/Dropbox/orgfiles/goals.org" "Short term goals") 
 	    (file "~/dotfiles/emacs.d/template-goal.txt") :empty-lines-after 1)))
 
-(defun make-capture-frame ()
- "Create a new frame and run org-capture."
- (interactive)
- (make-frame '((name . "capture")))
- (select-frame-by-name "capture")
- (delete-other-windows)
- (org-capture))
-
 (setq org-log-done 'time)
 (setq org-log-into-drawer t)
-
-; http://doc.norang.ca/org-mode.html
-(defun bh/org-auto-exclude-function (tag)
-  "Automatic task exclusion in the agenda with / RET"
-  (and (cond
-        ((string= tag "hold")
-         t)
-        ((string= tag "farm")
-         t))
-       (concat "-" tag)))
-
-(setq org-agenda-auto-exclude-function 'bh/org-auto-exclude-function)
 (setq org-agenda-span 'day)
-
-(defun insert-current-date () (interactive)
-  (insert (shell-command-to-string "echo -n $(date '+%Y-%m-%d %A')")))
-
-(global-set-key (kbd "C-c d") 'insert-current-date)
- 
-(global-set-key (kbd "C-c id") 'copy-id-to-clipboard)
-
-;(add-hook 'org-mode-hook
-;  (lambda ()
-;    (add-hook 'before-save-hook 'org-add-ids-to-headlines-in-file nil 'local)))
 
 (dolist (face '((org-level-1 . 1.2)
                 (org-level-2 . 1.1)
@@ -205,16 +174,70 @@
   (require 'org-ref))
 
 (use-package ledger-mode
+  :ensure t
   :defer t
   :init
   )
 
 (add-to-list 'auto-mode-alist '("\\.ledger$" . ledger-mode))
 
-;;  (use-package org-super-agenda
-;;     :straight t
-;;     :after org
-;;     :defer t
-;;     :config
-;;     (org-agenda nil "u")
-;;     )
+(use-package org-super-agenda
+    :ensure t
+    :after org
+    :defer t
+    :config
+    (org-agenda nil "u")
+    )
+
+(let ((org-super-agenda-groups
+       '(;; Each group has an implicit boolean OR operator between its selectors.
+         (:name "Today"  ; Optionally specify section name
+                :time-grid t  ; Items that appear on the time grid
+                :todo "TODAY")  ; Items that have this TODO keyword
+         (:name "Important"
+                ;; Single arguments given alone
+                :tag "bills"
+                :priority "A")
+         ;; Set order of multiple groups at once
+         (:order-multi (2 (:name "Shopping in town"
+                                 ;; Boolean AND group matches items that match all subgroups
+                                 :and (:tag "shopping" :tag "@town"))
+                          (:name "Food-related"
+                                 ;; Multiple args given in list with implicit OR
+                                 :tag ("food" "dinner"))
+                          (:name "Personal"
+                                 :habit t
+                                 :tag "personal")
+                          (:name "Space-related (non-moon-or-planet-related)"
+                                 ;; Regexps match case-insensitively on the entire entry
+                                 :and (:regexp ("space" "NASA")
+                                               ;; Boolean NOT also has implicit OR between selectors
+                                               :not (:regexp "moon" :tag "planet")))))
+         ;; Groups supply their own section names when none are given
+         (:todo "WAITING" :order 8)  ; Set order of this section
+         (:todo ("SOMEDAY" "TO-READ" "CHECK" "TO-WATCH" "WATCHING")
+                ;; Show this group at the end of the agenda (since it has the
+                ;; highest number). If you specified this group last, items
+                ;; with these todo keywords that e.g. have priority A would be
+                ;; displayed in that group instead, because items are grouped
+                ;; out in the order the groups are listed.
+                :order 9)
+         (:priority<= "B"
+                      ;; Show this section after "Today" and "Important", because
+                      ;; their order is unspecified, defaulting to 0. Sections
+                      ;; are displayed lowest-number-first.
+                      :order 1)
+         ;; After the last group, the agenda will display items that didn't
+         ;; match any of these groups, with the default order position of 99
+         )))
+  (org-agenda nil "a"))
+
+;; (use-package org-gcal
+;;   :ensure t
+;;   :config
+;;   (setq org-gcal-client-id (exec-path-from-shell-copy-env "WORK_GMAIL_CAL_CLIENT_ID")
+;; 	org-gcal-client-secret (exec-path-from-shell-copy-env "WORK_GMAIL_CAL_CLIENT_SECRET")
+;; 	org-gcal-file-alist '(("eric@kamana.com" .  "~/Dropbox/orgfiles/gcal.org"))))
+;; 
+;; (add-hook 'org-agenda-mode-hook (lambda () (org-gcal-fetch) ))
+;; (add-hook 'org-capture-after-finalize-hook (lambda () (org-gcal-fetch)))
