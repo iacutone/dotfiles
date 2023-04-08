@@ -14,18 +14,12 @@
 (global-set-key (kbd "C-c c")
        'org-capture)
 
-(global-set-key (kbd "C-c b")
-       'org-agenda-switch-to)
-
 (setq org-agenda-files (list "~/Dropbox/orgfiles/gcal.org"
 			     "~/Dropbox/orgfiles/work.org"
 			     "~/Dropbox/orgfiles/life.org"
 			     "~/Dropbox/orgfiles/goals.org"
 			     "~/Dropbox/orgfiles/birthdays.org"
 			     "~/Dropbox/orgfiles/entertainment.org"))
-
-; Set key combos
-(define-key global-map "\C-ca" 'org-agenda)
 
 (setq org-capture-templates
       '(("w" "Work To Do" entry (file+headline "~/Dropbox/orgfiles/work.org" "To Do Items")
@@ -64,16 +58,7 @@
 	  ("lw" "Good Bad" entry (file+datetree "~/Dropbox/orgfiles/journal.org") 
 	    (file "~/dotfiles/emacs.d/template-good-bad.txt"))
 	  ("ly" "Youtube" entry (file+headline "~/Dropbox/orgfiles/notes.org" "Youtube")
-	    (file "~/dotfiles/emacs.d/template-youtube.txt"))
-	("g" "Goals") 
-	  ("ge" "Epic goals" entry (file+headline "~/Dropbox/orgfiles/goals.org" "Epic Goals") 
-	    (file "~/dotfiles/emacs.d/template-goal.txt") :empty-lines-after 1)
-	  ("gl" "Long term goal (2-5 years from now)" entry (file+headline "~/Dropbox/orgfiles/goals.org" "Long term goals") 
-	    (file "~/dotfiles/emacs.d/template-goal.txt") :empty-lines-after 1) 
-	  ("gm" "Medium term goal (6 months up to 2 years)" entry (file+headline "~/Dropbox/orgfiles/goals.org" "Medium term goals") 
-	    (file "~/dotfiles/emacs.d/template-goal.txt") :empty-lines-after 1) 
-	  ("gs" "Short term goals (next 6 months)" entry (file+headline "~/Dropbox/orgfiles/goals.org" "Short term goals") 
-	    (file "~/dotfiles/emacs.d/template-goal.txt") :empty-lines-after 1)))
+	    (file "~/dotfiles/emacs.d/template-youtube.txt"))))
 
 (setq org-log-done 'time)
 (setq org-log-into-drawer t)
