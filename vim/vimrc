@@ -73,7 +73,6 @@ Plug 'tpope/vim-surround'
 
 " Language servers and linters
 Plug 'dense-analysis/ale'
-Plug 'github/copilot.vim'
 
 " Languages and syntax
 Plug 'elixir-editors/vim-elixir'
@@ -220,11 +219,10 @@ nnoremap <CR> :noh<CR><CR>
 " Don't add the comment prefix when I hit enter or o/O on a comment line.
 autocmd FileType * setlocal formatoptions-=r formatoptions-=o
 
-" from Jamie
-" inoremap <tab> <c-n><c-p>
+inoremap <tab> <c-n><c-p>
 
 " Autocomplete
-" let g:deoplete#enable_at_startup = 1
+let g:deoplete#enable_at_startup = 1
 
 vmap <C-c><C-c> <Plug>SendSelectionToTmux
 nmap <C-c><C-c> <Plug>NormalModeSendToTmux
