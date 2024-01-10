@@ -56,7 +56,7 @@ Plug 'mhinz/vim-startify'
 
 " Productivity
 Plug 'janko-m/vim-test'
-Plug 'junegunn/fzf'
+Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
 Plug 'mileszs/ack.vim'
 Plug 'mtth/scratch.vim'
@@ -73,6 +73,7 @@ Plug 'tpope/vim-surround'
 
 " Language servers and linters
 Plug 'dense-analysis/ale'
+Plug 'github/copilot.vim'
 
 " Languages and syntax
 Plug 'elixir-editors/vim-elixir'
@@ -220,29 +221,16 @@ nnoremap <CR> :noh<CR><CR>
 autocmd FileType * setlocal formatoptions-=r formatoptions-=o
 
 " from Jamie
-inoremap <tab> <c-n><c-p>
+" inoremap <tab> <c-n><c-p>
 
 " Autocomplete
-let g:deoplete#enable_at_startup = 1
-
-" Undo history
-if !isdirectory($HOME . "/.vim/undodir")
-  call mkdir($HOME . "/.vim/undodir", "p")
-endif
-set undofile
-set undodir=~/.vim/undodir
+" let g:deoplete#enable_at_startup = 1
 
 vmap <C-c><C-c> <Plug>SendSelectionToTmux
 nmap <C-c><C-c> <Plug>NormalModeSendToTmux
 nmap <C-c>r <Plug>SetTmuxVars
 
 imap <c-c> <esc>
-
-" set colorcolumn=80 textwidth=79
-
-" Use preview when FzfFiles runs in fullscreen
-command! -nargs=? -bang -complete=dir FzfFiles
-      \ call fzf#vim#files(<q-args>, <bang>0 ? fzf#vim#with_preview('up:60%') : {}, <bang>0)
 
 highlight clear SignColumn
 
@@ -251,3 +239,34 @@ let g:ale_fixers = { 'elixir': ['mix_format'] }
 
 vnoremap <leader>c :OSCYank<CR>
 nmap <leader>o <Plug>OSCYank
+
+set tags+=tag
+
+" Permanent undo
+set undodir=~/.vimdid
+set undofile
+
+" No arrow keys --- force yourself to use the home row
+nnoremap <up> <nop>
+nnoremap <down> <nop>
+inoremap <up> <nop>
+inoremap <down> <nop>
+inoremap <left> <nop>
+inoremap <right> <nop>
+
+" from http://sheerun.net/2014/03/21/how-to-boost-your-vim-productivity/
+if executable('ag')
+	set grepprg=ag\ --nogroup\ --nocolor
+endif
+if executable('rg')
+	set grepprg=rg\ --no-heading\ --vimgrep
+	set grepformat=%f:%l:%c:%m
+endif
+
+let g:fzf_layout = { 'down': '~20%' }
+command! -bang -nargs=* Rg
+  \ call fzf#vim#grep(
+  \   'rg --column --line-number --no-heading --color=always '.shellescape(<q-args>), 1,
+  \   <bang>0 ? fzf#vim#with_preview('up:60%')
+  \           : fzf#vim#with_preview('right:50%:hidden', '?'),
+  \   <bang>0)
