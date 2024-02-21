@@ -1,22 +1,28 @@
-[user]
-  name = Eric Iacutone
-  email = eric.iacutone@gmail.com
-[core]
-  excludesfile = /Users/iacutone/.gitignore
-  editor = nvim
 [alias]
-  co = checkout
   br = branch
+  co = checkout
   l = "!. ~/.githelpers && pretty_git_log"
-  poh = push origin head
+[branch]
+  sort = -committerdate
+[core]
+  editor = nvim
+  excludesfile = /Users/iacutone/.gitignore
+[diff]
+	algorithm = histogram
+  defaultBranch = main
 [filter "lfs"]
+  clean = git-lfs clean -- %f
   process = git-lfs filter-process
   required = true
-  clean = git-lfs clean -- %f
   smudge = git-lfs smudge -- %f
+[merge]
+  conflictstyle = zdiff3
 [push]
-  default = simple
+  autoSetupRemote = true
 [rerere]
   enabled = true
+[user]
+  email = eric.iacutone@gmail.com
+  name = Eric Iacutone
 [web]
   browser = open
