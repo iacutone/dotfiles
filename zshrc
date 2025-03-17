@@ -50,7 +50,7 @@ function play {
 function mp3 {
   # Download all of the things to /Downloads/audio/
 
-  youtube-dl -f 'bestaudio[ext=m4a]/mp4' "$*" \
+  yt-dlp -x --audio-format m4a --audio-quality 10 "$*" \
     --output="~/Downloads/audio/%(title)s.%(ext)s" \
 }
 
@@ -90,3 +90,4 @@ db_get () {
 
 . /opt/homebrew/opt/asdf/libexec/asdf.sh
 
+export PATH="/opt/homebrew/opt/ruby/bin:$PATH"
