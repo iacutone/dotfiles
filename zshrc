@@ -32,25 +32,10 @@ source $ZSH/oh-my-zsh.sh
 # =============
 #   FUNCTIONS
 # =============
-
-function play {
-  # Skip DASH manifest for speed purposes. This might actually disable
-  # being able to specify things like 'bestaudio' as the requested format,
-  # but try anyway.
-  # Get the best audio that isn't WebM, because afplay doesn't support it.
-  # Use "$*" so that quoting the requested song isn't necessary.
-  youtube-dl --default-search=ytsearch: \
-             --youtube-skip-dash-manifest \
-             --output="${TMPDIR:-/tmp/}%(title)s-%(id)s.%(ext)s" \
-             --restrict-filenames \
-             --format="bestaudio[ext!=webm]" \
-             --exec=afplay "$*"
-}
-
 function mp3 {
   # Download all of the things to /Downloads/audio/
 
-  yt-dlp -x --audio-format m4a --audio-quality 10 "$*" \
+  yt-dlp -x --audio-format m4a --audio-quality 0 "$*" \
     --output="~/Downloads/audio/%(title)s.%(ext)s" \
 }
 
