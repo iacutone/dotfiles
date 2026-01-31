@@ -96,8 +96,7 @@
 
 (org-babel-do-load-languages
   'org-babel-load-languages
-  '((emacs-lisp . t)
-    (ledger . t)))
+  '((emacs-lisp . t)))
   
 (setq org-confirm-bable-evaluate nil)
 
@@ -116,7 +115,8 @@
   :config
   (setq org-roam-directory (expand-file-name "~/Dropbox/orgfiles/roam"))
   (setq org-roam-capture-templates '(("d" "default" plain "%?"
-                                      :target
+                                      :target (file+head "%<%Y%m%d%H%M%S>-${slug}.org"
+                                                         "#+title: ${title}\n")
                                       :unnarrowed t)
                                      ("r" "bibliography reference" plain
                                       "%?"
@@ -158,14 +158,6 @@
   (("C-c r z" . orb-insert-link))
   :config
   (require 'org-ref))
-
-(use-package ledger-mode
-  :ensure t
-  :defer t
-  :init
-  )
-
-(add-to-list 'auto-mode-alist '("\\.ledger$" . ledger-mode))
 
 ;; (use-package org-gcal
 ;;   :ensure t

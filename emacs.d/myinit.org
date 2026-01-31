@@ -523,14 +523,67 @@
 ;; http://blog.sidhartharya.com/exporting-org-roam-notes-to-hugo/
 (require 'org-roam)
 
-(defun my-org-hugo-org-roam-sync-all()
-  "Sync all org-roam files"
+(defun my-ensure-hugo-frontmatter (file-path)
+  "Ensure FILE-PATH has Hugo-compatible frontmatter."
+  (with-temp-buffer
+    (insert-file-contents file-path)
+    (goto-char (point-min))
+    
+    ;; Check if frontmatter exists
+    (unless (looking-at "^---")
+      ;; No frontmatter, add basic one
+      (let* ((title (file-name-base file-path))
+             (date (format-time-string "%Y-%m-%d"))
+             (frontmatter (format "---\ntitle: \"%s\"\ndate: %s\ndraft: false\ntags:\n  - book-highlights\n---\n\n"
+                                 title date)))
+        (goto-char (point-min))
+        (insert frontmatter)))
+    
+    (write-region (point-min) (point-max) file-path)))
+
+(defun my-org-hugo-sync-directory (source-dir hugo-section &optional file-type)
+  "Sync files from SOURCE-DIR to Hugo HUGO-SECTION.
+FILE-TYPE can be 'org (process with ox-hugo) or 'md (copy directly).
+If nil, defaults to 'org."
   (interactive)
   (setq org-hugo-base-dir "~/thoughts")
-  (dolist (fil (org-roam--list-files org-roam-directory))
-    (with-current-buffer (find-file-noselect fil)
-      (org-hugo-export-wim-to-md)
-      (kill-buffer))))
+  (let* ((file-type (or file-type 'org))
+         (file-pattern (if (eq file-type 'md) "\\.md$" "\\.org$"))
+         (dest-dir (expand-file-name 
+                    (concat org-hugo-base-dir "/content/" hugo-section))))
+    
+    ;; Ensure destination directory exists
+    (unless (file-exists-p dest-dir)
+      (make-directory dest-dir t))
+    
+    (dolist (fil (directory-files-recursively source-dir file-pattern))
+      (if (eq file-type 'md)
+          ;; For markdown files, copy and ensure frontmatter
+          (let ((dest-file (expand-file-name 
+                           (file-name-nondirectory fil) 
+                           dest-dir)))
+            (copy-file fil dest-file t)
+            (my-ensure-hugo-frontmatter dest-file)
+            (message "Copied and processed: %s -> %s" fil dest-file))
+        ;; For org files, use ox-hugo
+        (with-current-buffer (find-file-noselect fil)
+          (setq org-hugo-section hugo-section)
+          (org-hugo-export-wim-to-md)
+          (kill-buffer))))))
+
+;; Wrapper functions
+(defun my-org-hugo-org-roam-sync-all ()
+  "Sync all org-roam files to notes section."
+  (interactive)
+  (my-org-hugo-sync-directory org-roam-directory "notes" 'org))
+
+(defun my-org-hugo-book-highlights-sync-all ()
+  "Sync all book highlights markdown files to book-highlights section."
+  (interactive)
+  (my-org-hugo-sync-directory 
+   "/Users/iacutone/obsidian-vault/books/reference notes" 
+   "book-highlights"
+   'md))
 #+END_SRC
 
 * doom themes
